@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "surface_kind": "opl_scholarskills_display_gallery_snapshot",
+  "source_repo": "med-autoscience",
+  "source_paths": [
+    "docs/delivery/medical-display/examples/medical_display_gallery.pdf",
+    "docs/delivery/medical-display/examples/gallery_manifest.json",
+    "docs/delivery/medical-display/examples/medical_display_gallery_reference.md",
+    "docs/delivery/medical-display/examples/display_pack_gallery_status.md",
+    "docs/delivery/medical-display/examples/display_pack_gallery_quality_audit.md"
+  ],
+  "snapshot_created_utc": "2026-06-24T11:15:07Z",
+  "status": "rendered",
+  "visual_gallery_template_count": 37,
+  "evidence_gallery_template_count": 34,
+  "composition_recipe_gallery_count": 6,
+  "style_profile_id": "student_curated_clinical_publication_v1",
+  "journal_palette_ref": "lidocaineq_figure_template_palette_20260621",
+  "evidence_renderer_policy": {
+    "r_first_compliant": true,
+    "current_r_ggplot2_evidence_template_count": 34,
+    "current_python_evidence_template_count": 0
+  },
+  "publication_ready_claim_authorized": false,
+  "included_files": [
+    {
+      "path": "medical_display_gallery.pdf",
+      "sha256": "e68ae575fab3e852c1a80b25d059cca479fc6e613dfe3fab6dadf8f00e58b576"
+    },
+    {
+      "path": "gallery_manifest.json",
+      "sha256": "7b18976b6eb06fbb0efca7d1259fb38c7b4d09fdcf1ed586e7d8d2283f486276"
+    },
+    {
+      "path": "medical_display_gallery_reference.md",
+      "sha256": "77282f0991513ffc4e8ab75a77fb9444fc673c1be737d701258a1a69364d4534"
+    },
+    {
+      "path": "display_pack_gallery_status.md",
+      "sha256": "25e7bdeaa5456052d839b506f8b70cf623d3a8f43c94d1646c06fcaedf07185e"
+    },
+    {
+      "path": "display_pack_gallery_quality_audit.md",
+      "sha256": "8558dd390cd9ae84cc5d7cdd093b4b64d8864d9db50ad88c8a3a434c1068c835"
+    }
+  ],
+  "excluded_intermediate_outputs": [
+    "outputs/display-pack-gallery/",
+    "medical_display_gallery_assets/",
+    "single-figure png/svg/html exports",
+    "render cache",
+    "layout sidecars",
+    "dependency locks",
+    "runtime run-context files"
+  ],
+  "authority_boundary": {
+    "can_write_domain_truth": false,
+    "can_sign_owner_receipt": false,
+    "can_create_typed_blocker": false,
+    "can_claim_publication_ready": false,
+    "can_claim_artifact_authority": false
+  }
+}
