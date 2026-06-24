@@ -3,7 +3,7 @@
 Owner: `One Person Lab`
 Purpose: 说明 `OPL ScholarSkills` 能力模块库的机器入口、十大品牌模块关系、runtime environment bridge 和 domain-agent 消费边界。
 State: `active_structural_baseline`
-Machine boundary: 本文是人读导航。机器真相以 `contracts/opl-framework/scholar-skills-capability-modules.json`、`src/scholar-skills.ts` 与 `opl scholar-skills * --json` readback 为准。
+Machine boundary: 本文是人读导航。本 repo 的 module catalog snapshot 与 Skill pack 真相以 `contracts/scholar-skills-capability-modules.json`、`.codex-plugin/plugin.json`、`skills/opl-scholarskills/SKILL.md` 与 gallery manifest 为准；可执行 `opl scholar-skills *` CLI 和 Connect 同步行为仍以 OPL Framework readback 为准。
 
 ## 基本定位
 
@@ -66,17 +66,27 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 
 当 `materialize --emit-candidate-artifacts` 显式启用时，ScholarSkills 会调用十个 OPL-owned deterministic candidate artifact engine，为每个模块写出专业候选体、`input_requirements`、`validation_checks`、`engine_receipt_ref` 和 sha256 refs。Display 输出 SVG visual-plan candidate；Write/Review/Submit 输出 Markdown candidate；Tables/Stats/Omics/Lit/Data/Intake 输出 JSON structured candidate。该 engine 输出比 refs-only body 更接近可消费 artifact，但仍保持 `counts_as_paper_truth=false`、`counts_as_owner_receipt=false`、`can_authorize_publication_readiness=false`、`can_claim_quality_verdict=false`、`can_claim_artifact_authority=false`，不能替代 domain owner consumption。
 
-仓内提供 repo-tracked Codex plugin surface：`.codex-plugin/plugin.json` 与 `skills/opl-scholarskills/SKILL.md`。该 skill pack 只是把 canonical contract snapshot、CLI readback 入口和 no-authority guard 暴露给 Codex discovery / sync layer；它不是第二真相源，也不能替代 OPL Framework 中的 executable `opl scholar-skills *` CLI、domain owner receipt、typed blocker、runtime evidence 或 paper artifact authority。
+仓内提供 repo-tracked Codex plugin surface：`.codex-plugin/plugin.json` 与 `skills/opl-scholarskills/SKILL.md`。本仓是 ScholarSkills skill pack、module catalog snapshot 和 gallery review refs 的 source of truth；该 skill pack 把 canonical contract snapshot、CLI readback 入口和 no-authority guard 暴露给 Codex discovery / sync layer。它不能替代 OPL Framework 中的 executable `opl scholar-skills *` CLI、domain owner receipt、typed blocker、runtime evidence 或 paper artifact authority。
 
 ## Connect 同步与安装落点
 
-ScholarSkills 的默认消费方是 MAS project-local capability mirror，而不是用户系统级 Codex skill registry。`opl connect sync-skills --domain scholarskills --json` 等价于 project scope，默认写入 MAS 项目工作目录：
+ScholarSkills 的默认消费方是 MAS paper workspace 或 runtime quest 的 local Codex discovery path，而不是用户系统级 Codex skill registry，也不是 MAS 程序仓 `plugins/` mirror。推荐落点是：
 
 ```text
-<med-autoscience-repo>/plugins/opl-scholarskills/
+<workspace_root>/.codex/skills/opl-scholarskills/
+<quest_root>/.codex/skills/opl-scholarskills/
 ```
 
-该目录是 OPL-managed project-local mirror，只承载 `opl-scholarskills` plugin manifest 与 `SKILL.md`，用于 MAS 调用和本地审阅。它不是 MAS domain truth、不是 MAS owner receipt、不是 typed blocker、不是 runtime queue，也不是 publication/package authority。MAS 仓内 `.codex/` 已退役，ScholarSkills 默认同步不得写入 MAS `.codex/skills`。
+该目录是 OPL-managed local discovery copy，只承载消费方会话需要发现的 `SKILL.md`、plugin/module refs、紧凑 gallery review refs 和轻量 manifest。它不是 MAS domain truth、不是 MAS owner receipt、不是 typed blocker、不是 runtime queue，也不是 publication/package authority。不要把本 repo 整仓、MAS 渲染输出、gallery 中间产物或 OPL/MAS 程序源码复制到论文目录或 quest。
+
+OPL Connect 的预期命令是：
+
+```bash
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
+```
+
+`workspace` scope 用于论文 workspace 级发现；`quest` scope 用于 runtime quest 级发现。二者都应保持 compact install：只复制 local discovery 和 review 所需 refs，不复制 heavy gallery intermediate outputs。
 
 系统级 Codex 注册仍保留为显式开发者路径：
 
@@ -84,7 +94,7 @@ ScholarSkills 的默认消费方是 MAS project-local capability mirror，而不
 opl connect sync-skills --domain scholarskills --scope codex --json
 ```
 
-只有显式 `--scope codex` 才写用户 Codex plugin registry / config；默认 project scope 返回 `codex_plugin_registry=null`。App 可通过 `scholarskills_project_sync` action 调用同一 project-local route，并支持 dry-run readback。
+只有显式 `--scope codex` 才写用户 Codex plugin registry / config。旧的 MAS program-repo `plugins/opl-scholarskills/` mirror 只能作为历史迁移或显式开发 surface，不是推荐的 runtime quest discovery surface。App/workbench 若暴露 sync action，应路由到同一 workspace/quest-local install model，并支持 dry-run readback。
 
 需要把 module id 绑定到真实 OPL runtime environment substrate 时，使用 runtime bridge 命令。它们复用 `opl runtime env prepare/run-context` 的实现，可在明确 `--apply` 时写入 OPL 管理依赖库和 `paper/build/dependency_environment_lock.json`、`dependency_environment_receipt.json`、`dependency_run_context.json`，但仍不写 domain truth、artifact body、owner receipt、typed blocker 或 runtime queue：
 

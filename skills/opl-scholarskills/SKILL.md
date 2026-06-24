@@ -7,11 +7,29 @@ description: "Operate OPL ScholarSkills as a Codex skill pack for repo-tracked s
 
 Use OPL ScholarSkills as a repo-tracked Codex entry for scholarly capability modules. Treat `contracts/scholar-skills-capability-modules.json` as this skill pack's module catalog snapshot. The executable `opl scholar-skills *` CLI and runtime bridge remain owned by OPL Framework.
 
+## Local Install / Discovery
+
+This `opl-scholarskills` repository is the source of truth for the skill pack. The recommended MAS consumption path is a compact local Codex discovery install inside the active paper workspace or runtime quest:
+
+```text
+<workspace_root>/.codex/skills/opl-scholarskills/
+<quest_root>/.codex/skills/opl-scholarskills/
+```
+
+Use OPL Connect to sync that compact install:
+
+```bash
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
+```
+
+The local install is refs-only and authority false. It may include this Skill entry, plugin/module refs, compact gallery review refs, and lightweight manifests needed for discovery and review. Do not copy this whole source repository into a paper directory or quest. Do not copy MAS `outputs/display-pack-gallery/`, render caches, single-figure PNG/SVG/HTML exports, dependency locks, run-context files, or other gallery intermediates into each consuming workspace. Do not treat a MAS program-repo `plugins/opl-scholarskills/` mirror or system Codex registry install as the recommended runtime quest discovery surface.
+
 ## Boundary
 
 - Keep the authority false boundary explicit: `can_write_domain_truth: false`, `can_write_runtime_state: false`, `can_mutate_artifact_body: false`, `can_sign_owner_receipt: false`, and `can_create_typed_blocker: false`.
 - Use ScholarSkills outputs as refs-only candidates. Do not present CLI readbacks, materialized packages, or tests as runtime-ready, domain-ready, quality verdict, publication readiness, artifact authority, owner receipt, typed blocker, or production readiness.
-- Respect the MAS owner gate: MAS or another domain owner must consume candidate refs and issue the owner receipt, typed blocker, reviewer receipt, route-back, or domain artifact mutation. Do not write MAS, Yang, runtime DB, queue, owner receipt, typed blocker, or domain truth surfaces from this skill.
+- Respect the MAS owner gate: MAS or another domain owner must consume candidate refs and issue the owner receipt, typed blocker, reviewer receipt, route-back, or domain artifact mutation. Do not write MAS, Yang, runtime DB, queue, owner receipt, typed blocker, current package authority, publication eval, controller decision, or domain truth surfaces from this skill.
 
 ## Modules
 
@@ -60,4 +78,4 @@ For `opl.scholarskills.display`, use this repo's compact gallery review package:
 - `gallery/medical-display/gallery_manifest.json`
 - `gallery/medical-display/gallery_snapshot.json`
 
-The package is copied from MAS Display Pack final docs/gallery surfaces for direct human review. Treat these refs as human review and visual-audit preview refs only. They do not prove publication readiness, owner acceptance, artifact authority, or paper truth. MAS remains the owner for medical display truth, actual figure artifacts, visual audit receipts, and publication gates.
+The package is copied from MAS Display Pack final docs/gallery surfaces for direct human review. Treat these refs as human review and visual-audit preview refs only. They do not prove publication readiness, owner acceptance, artifact authority, or paper truth. Local workspace and quest installs should copy only these compact review refs when needed, not the gallery build workspace or intermediate outputs. MAS remains the owner for medical display truth, actual figure artifacts, visual audit receipts, and publication gates.

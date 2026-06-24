@@ -14,7 +14,7 @@ State: `public_entry`
 Machine boundary: Human-readable public entry. Machine truth remains in `.codex-plugin/plugin.json`, `skills/opl-scholarskills/SKILL.md`, `contracts/scholar-skills-capability-modules.json`, gallery manifests/fingerprints, OPL Framework CLI readbacks, and domain owner receipts in consuming agents.
 -->
 
-`OPL ScholarSkills` packages a set of scholarly capability modules as a Codex-compatible skill pack. It gives MAS and other OPL-family agents a consistent way to discover specialist academic capabilities without moving domain authority out of the owning agent.
+`OPL ScholarSkills` packages a set of scholarly capability modules as a Codex-compatible skill pack. This repository is the source of truth for the pack, and MAS or other OPL-family agents consume it through local Codex discovery paths in the paper workspace or runtime quest without moving domain authority out of the owning agent.
 
 The pack is intentionally branded and narrow:
 
@@ -43,7 +43,7 @@ Each module is a capability descriptor and handoff pattern. It can guide refs-on
     </td>
     <td width="33%" valign="top">
       <strong>How To Use</strong><br/>
-      Install or sync this plugin into the consuming project, then let the domain owner consume or reject candidate refs
+      Sync the compact Skill into a workspace or quest-local `.codex/skills/opl-scholarskills` path, then let the domain owner consume or reject candidate refs
     </td>
   </tr>
 </table>
@@ -62,18 +62,18 @@ The module catalog covers display, tables, stats, omics, literature, writing, re
 **Codex Plugin Packaging**<br/>
 The repository is directly usable as a Codex plugin source through `.codex-plugin/plugin.json` and `skills/opl-scholarskills/SKILL.md`.
 
-**Project-Local Consumption**<br/>
-The expected MAS path is project-local installation or OPL Connect sync into the MAS workspace. System-level Codex installation is an explicit developer path, not the default consuming-agent path.
+**Workspace / Quest-Local Consumption**<br/>
+The expected MAS path is a local Codex discovery install inside the active paper workspace or runtime quest. System-level Codex installation and MAS program-repo `plugins/` mirrors are explicit developer or legacy surfaces, not the default consuming-agent path.
 
 **No-Authority By Design**<br/>
 All modules keep false authority flags. Outputs are candidates or refs until the consuming domain owner accepts, rejects, or routes them back.
 
 **Display Gallery Included For Human Review**<br/>
-The repository carries a compact MAS Display Pack gallery review package under [`gallery/medical-display/`](./gallery/medical-display/), including the PDF, manifest, reference, status, quality audit, and snapshot metadata.
+The repository carries a compact MAS Display Pack gallery review package under [`gallery/medical-display/`](./gallery/medical-display/), including the PDF, manifest, reference, status, quality audit, and snapshot metadata. Workspace and quest installs should expose only these compact review refs, not renderer intermediates.
 
 ## Display Gallery
 
-The display gallery is included here because it is the fastest human review surface for `Scholar Display`. It is a published review package, not the MAS rendering workspace.
+The display gallery is included here because this repository is the ScholarSkills source of truth and the fastest human review surface for `Scholar Display`. It is a published review package, not the MAS rendering workspace.
 
 Included:
 
@@ -114,7 +114,8 @@ OPL Framework owns the executable CLI and runtime bridge surfaces such as:
 opl scholar-skills list --json
 opl scholar-skills inspect --module opl.scholarskills.display --json
 opl scholar-skills materialize --module opl.scholarskills.display --output-root /tmp/scholarskills-display --json
-opl connect sync-skills --domain scholarskills --scope project --target-project medautoscience --json
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
 ```
 
 MAS or another domain agent owns:
@@ -141,11 +142,21 @@ scripts/verify.sh                      repository verification entry
 
 ## Install And Sync
 
-For MAS project-local usage, prefer OPL Connect from the current OPL Framework checkout:
+This repository remains the source of truth. The recommended MAS install surface is a compact local Codex discovery copy in the active paper workspace or runtime quest:
+
+```text
+<workspace_root>/.codex/skills/opl-scholarskills/
+<quest_root>/.codex/skills/opl-scholarskills/
+```
+
+Use OPL Connect from the current OPL Framework checkout:
 
 ```bash
-opl connect sync-skills --domain scholarskills --scope project --target-project medautoscience --json
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
 ```
+
+The target should receive only the Skill entry, plugin/module refs, and compact gallery review refs needed for local discovery and review. Do not copy the whole source repository, MAS `outputs/display-pack-gallery/`, render caches, single-figure exports, dependency locks, or other gallery intermediates into each paper workspace or quest. Do not use a MAS program-repo `plugins/opl-scholarskills/` mirror as the recommended runtime discovery surface.
 
 For direct Codex plugin development, use this repository as a plugin source or let OPL Connect register the plugin explicitly:
 

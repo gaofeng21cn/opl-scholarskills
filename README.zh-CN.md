@@ -14,7 +14,7 @@ State: `public_entry`
 Machine boundary: 人读公开入口。机器真相以 `.codex-plugin/plugin.json`、`skills/opl-scholarskills/SKILL.md`、`contracts/scholar-skills-capability-modules.json`、gallery manifest/fingerprint、OPL Framework CLI readback 与消费方 domain owner receipt 为准。
 -->
 
-`OPL ScholarSkills` 把一组学术工作能力打包成 Codex-compatible skill pack。它给 MAS 和其他 OPL family agent 提供统一、可发现、可同步的专业能力入口，同时不把领域 authority 从消费方 agent 搬出来。
+`OPL ScholarSkills` 把一组学术工作能力打包成 Codex-compatible skill pack。本仓是该 skill pack 的 source of truth；MAS 和其他 OPL family agent 通过论文 workspace 或 runtime quest 内的 local Codex discovery path 消费它，同时不把领域 authority 从消费方 agent 搬出来。
 
 当前十个品牌能力模块是：
 
@@ -43,7 +43,7 @@ Machine boundary: 人读公开入口。机器真相以 `.codex-plugin/plugin.jso
     </td>
     <td width="33%" valign="top">
       <strong>使用方式</strong><br/>
-      安装或同步到消费方项目，再由 domain owner 消费、拒绝或 route back candidate refs
+      把紧凑 Skill 同步到 workspace 或 quest-local `.codex/skills/opl-scholarskills`，再由 domain owner 消费、拒绝或 route back candidate refs
     </td>
   </tr>
 </table>
@@ -62,18 +62,18 @@ Machine boundary: 人读公开入口。机器真相以 `.codex-plugin/plugin.jso
 **Codex Plugin Packaging**<br/>
 本仓通过 `.codex-plugin/plugin.json` 和 `skills/opl-scholarskills/SKILL.md` 直接作为 Codex plugin source。
 
-**项目本地消费**<br/>
-MAS 的默认路径是同步到 MAS workspace 的 project-local plugin mirror。系统级 Codex 安装是显式开发者路径，不是默认消费路径。
+**Workspace / Quest-local 消费**<br/>
+MAS 的默认路径是安装到活跃论文 workspace 或 runtime quest 内的 local Codex discovery path。系统级 Codex 安装和 MAS 程序仓 `plugins/` mirror 是显式开发或历史迁移面，不是默认消费路径。
 
 **默认无 authority**<br/>
 所有模块都保持 false authority flags。输出只是 candidate 或 refs，直到消费方 domain owner 接收、拒绝或 route back。
 
 **绘图 Gallery 随 Skill Repo 提供**<br/>
-本仓在 [`gallery/medical-display/`](./gallery/medical-display/) 放置紧凑的人审发布包，包括 PDF、manifest、reference、status、quality audit 和 snapshot 元数据。
+本仓在 [`gallery/medical-display/`](./gallery/medical-display/) 放置紧凑的人审发布包，包括 PDF、manifest、reference、status、quality audit 和 snapshot 元数据。Workspace 和 quest 安装只应暴露这些紧凑 review refs，不复制渲染中间产物。
 
 ## 绘图 Gallery
 
-把 gallery 放在 skill repo 里，是为了让运维和审阅更直接：拿到 skill repo 就能打开 `Scholar Display` 的当前人审样例。这里保存的是发布级审阅包，不是 MAS 渲染工作区。
+把 gallery 放在 skill repo 里，是因为本仓是 ScholarSkills source of truth，也让运维和审阅更直接：拿到 skill repo 就能打开 `Scholar Display` 的当前人审样例。这里保存的是发布级审阅包，不是 MAS 渲染工作区。
 
 已纳入：
 
@@ -114,7 +114,8 @@ OPL Framework 持有可执行 CLI 和 runtime bridge，例如：
 opl scholar-skills list --json
 opl scholar-skills inspect --module opl.scholarskills.display --json
 opl scholar-skills materialize --module opl.scholarskills.display --output-root /tmp/scholarskills-display --json
-opl connect sync-skills --domain scholarskills --scope project --target-project medautoscience --json
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
 ```
 
 MAS 或其他消费方 domain agent 持有：
@@ -141,11 +142,21 @@ scripts/verify.sh                      仓库验证入口
 
 ## 安装与同步
 
-MAS project-local 使用优先走当前 OPL Framework checkout 的 Connect：
+本仓继续作为 source of truth。推荐的 MAS 安装面，是活跃论文 workspace 或 runtime quest 内的紧凑 local Codex discovery 副本：
+
+```text
+<workspace_root>/.codex/skills/opl-scholarskills/
+<quest_root>/.codex/skills/opl-scholarskills/
+```
+
+使用当前 OPL Framework checkout 的 Connect：
 
 ```bash
-opl connect sync-skills --domain scholarskills --scope project --target-project medautoscience --json
+opl connect sync-skills --domain scholarskills --scope workspace --target-workspace <workspace_root> --json
+opl connect sync-skills --domain scholarskills --scope quest --target-quest <quest_root> --json
 ```
+
+目标目录只应收到 local discovery 和 review 所需的 Skill 入口、plugin/module refs 与紧凑 gallery review refs。不要把 source repo 整仓、MAS `outputs/display-pack-gallery/`、render cache、单图导出、dependency lock 或其他 gallery 中间产物复制进每个论文 workspace 或 quest。不要把 MAS 程序仓 `plugins/opl-scholarskills/` mirror 当作推荐 runtime discovery surface。
 
 直接做 Codex plugin 开发时，可以把本仓作为 plugin source，或显式让 OPL Connect 注册：
 
