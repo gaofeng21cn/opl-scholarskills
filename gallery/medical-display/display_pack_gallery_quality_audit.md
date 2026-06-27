@@ -56,6 +56,47 @@ Machine boundary: 人读质量审计。机器真相继续归 Gallery manifest、
 - `shared_legend_or_direct_label_strategy_declared`
 - `programmatic_evidence_primitives_preserve_data_statistics_refs`
 
+## 通用科研做图 Quality Floor
+
+- policy: `mas_scientific_figure_quality_floor.v1`
+- scope: `all_gallery_and_paper_candidate_figures`
+- graphical abstract strategy: `brief_first_reference_guided_ai_candidate_not_single_template_reuse`
+- ai executor freedom: `ai_may_choose_figure_form_layout_panel_hierarchy_backend_and_candidate_count_from_paper_local_claims`
+
+Learned patterns:
+
+- `discoverable_skill_pack_with_provenance`
+- `figure_contract_before_plotting`
+- `reference_selection_and_style_brief`
+- `candidate_generation_before_owner_gate`
+- `critic_review_or_route_back`
+- `reference_target_preserve_list`
+- `final_size_readability_inspection`
+- `vector_export_when_possible`
+- `semantic_palette_and_color_vision_check`
+- `source_data_statistics_and_claim_refs_preserved`
+
+Required refs before Gallery or paper use:
+
+- `core_claim_and_evidence_chain_ref`
+- `figure_contract_ref`
+- `reference_selection_ref`
+- `style_brief_ref`
+- `candidate_artifact_ref`
+- `critic_review_ref`
+- `final_size_inspection_ref`
+- `source_preservation_ref`
+- `owner_gate_ref`
+
+External learning sources:
+
+- `K-Dense-AI/scientific-agent-skills@9c9bd2e92af12311ecd0c1a643e0931643f9ea04`
+- `Yuan1z0825/nature-skills@6edea02edb9c65d6ce6c5d7e720d0f8d9b7fce27`
+- `google-research/papervizagent@e088a8fff74cc363b6897c0843631fff76484908`
+- `dwzhu-pku/PaperBanana@836455537e863b5a2f40dace487a782c0bc5ef94`
+- `VILA-Lab/FigMirror@e3d3331e12602bd242e8bd15cebe42b490a82198`
+- `dazhiyang/scientific-plotting-skill@980cbf9328b4224268dd5fff99c1f2f8158e69cc`
+
 ## 页面级图页方案
 
 | Recipe | Title | Hero panel | Supporting | Primitive families | Programmatic evidence | Design shell |
@@ -195,3 +236,8 @@ Machine boundary: 人读质量审计。机器真相继续归 Gallery manifest、
 - [viridis_perceptual_palette](https://sjmgarnier.github.io/viridis/): Perceptually uniform and color-vision-friendly sequential palettes are preferred for continuous matrix and density-like encodings.
 - [complexheatmap_color_mapping](https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html): Matrix heatmaps need fixed value-to-color mapping rather than per-plot drift; shared sequential and diverging mappings preserve cross-figure comparability.
 - [nature_skills_figure_contract](https://github.com/Yuan1z0825/nature-skills/tree/main/skills/nature-figure): Figure work should start from core conclusion, evidence chain, panel hierarchy, backend-exclusive export, and final visual QA; MAS adapts this into a nonblocking R-first agent contract.
+- [scientific_agent_skills_provenance](https://github.com/K-Dense-AI/scientific-agent-skills): Scientific drawing skills should be discoverable, provenance-carrying, and task-scoped rather than hidden inside a generic plotting prompt.
+- [papervizagent_reference_pipeline](https://github.com/google-research/papervizagent): Reference-driven figure agents separate retrieval, planning, styling, visualization, and critique; MAS adapts this as refs-only quality-floor evidence.
+- [paperbanana_candidate_critic_loop](https://github.com/dwzhu-pku/PaperBanana): Academic illustration generation benefits from multiple candidates and critic rounds before owner review rather than single-shot template reuse.
+- [figmirror_reference_preserve_list](https://github.com/VILA-Lab/FigMirror): Reference matching needs an explicit preserve list so style transfer does not drift away from claim, evidence, labels, or source constraints.
+- [scientific_plotting_skill_hard_rules](https://github.com/dazhiyang/scientific-plotting-skill): Small hard rules for vector export, dimensions, color, typography, and parameter blocks raise the plotting floor without constraining the figure concept.

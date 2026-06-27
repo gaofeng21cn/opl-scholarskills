@@ -211,7 +211,36 @@
           "treat_style_reference_as_data_or_claim_authority",
           "skip_ai_visual_critic_review",
           "claim_quality_verdict_without_domain_owner_gate"
-        ]
+        ],
+        "scientific_figure_quality_floor_policy": {
+          "policy_id": "scholarskills_scientific_figure_quality_floor.v1",
+          "scope": "all_scientific_display_candidates_not_only_graphical_abstract",
+          "learned_scientific_figure_patterns": [
+            "discoverable_skill_pack_with_provenance",
+            "figure_contract_before_plotting",
+            "reference_selection_and_style_brief",
+            "candidate_generation_before_owner_gate",
+            "critic_review_or_route_back",
+            "reference_target_preserve_list",
+            "final_size_readability_inspection",
+            "vector_export_when_possible",
+            "semantic_palette_and_color_vision_check",
+            "source_data_statistics_and_claim_refs_preserved"
+          ],
+          "required_before_gallery_or_paper_use": [
+            "core_claim_and_evidence_chain_ref",
+            "figure_contract_ref",
+            "reference_selection_ref",
+            "style_brief_ref",
+            "candidate_artifact_ref",
+            "critic_review_ref",
+            "final_size_inspection_ref",
+            "source_preservation_ref",
+            "domain_owner_gate_ref"
+          ],
+          "ai_executor_freedom": "AI may choose the most suitable figure form, layout, panel hierarchy, and rendering backend from paper-local claims and evidence; this policy only raises the quality floor.",
+          "graphical_abstract_strategy_ref": "brief_first_reference_guided_ai_candidate_not_single_template_reuse"
+        }
       },
       "authority_boundary": {
         "can_claim_domain_ready": false,

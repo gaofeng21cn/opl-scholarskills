@@ -13,6 +13,10 @@ Gallery 放在本 ScholarSkills repo，是因为本 repo 是 skill pack 的 sour
 
 Gallery 只能证明有人可审的可视样例和 manifest surface 存在；它不能证明真实论文 figure ready、visual parity 完成、owner accepted、publication ready、current package ready 或 artifact authority。
 
+## 通用科研做图 Quality Floor
+
+本轮外部学习落到 `scholarskills_scientific_figure_quality_floor.v1`，覆盖数据证据图、页面级组合图、graphical abstract 和其他 design-led display work。它要求先有 figure contract、reference selection、style brief、candidate artifact、critic review、final-size inspection、source preservation 和 owner gate refs；AI 执行者仍可自由选择最适合论文局部主张的图型、布局、面板层级、渲染后端和候选数量。本仓只提高质量下限，不限制上限，也不签发质量 verdict。
+
 ## Graphical Abstract 口径
 
 当前 gallery 中的 `submission_graphical_abstract` 只应视为 `lower_bound_design_shell_not_reusable_template_authority`。它暴露的问题不是单个 PNG/SVG 细节可以补救，而是把 graphical abstract 当作固定模板复用：真实 graphical abstract 的结构取决于论文主张、证据链、目标期刊、读者路径和参考风格。单个 Python/SVG shell 只能给出下限示例，不能稳定承担跨论文复用。

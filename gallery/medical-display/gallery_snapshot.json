@@ -9,13 +9,36 @@
     "docs/delivery/medical-display/examples/display_pack_gallery_status.md",
     "docs/delivery/medical-display/examples/display_pack_gallery_quality_audit.md"
   ],
-  "snapshot_created_utc": "2026-06-24T11:15:07Z",
+  "snapshot_created_utc": "2026-06-27T12:31:46Z",
   "status": "rendered",
   "visual_gallery_template_count": 37,
   "evidence_gallery_template_count": 34,
   "composition_recipe_gallery_count": 6,
   "style_profile_id": "student_curated_clinical_publication_v1",
   "journal_palette_ref": "lidocaineq_figure_template_palette_20260621",
+  "quality_summary": {
+    "overall_status": "not_publication_ready",
+    "publication_ready_claim_authorized": false,
+    "visual_template_count": 34,
+    "design_visual_template_count": 1,
+    "table_preview_visual_template_count": 1,
+    "total_gallery_visual_template_count": 37,
+    "non_visual_template_count": 3,
+    "blocked_template_count": 0,
+    "lower_bound_review_required_count": 34,
+    "gallery_lower_bound_admission_status": "gallery_lower_bound_passed_requires_paper_audit",
+    "publication_quality_profile_coverage": {
+      "schema_version": 1,
+      "current_template_count": 37,
+      "complete_profile_template_count": 37,
+      "complete_profile_percent": 100,
+      "medical_family_missing_template_ids": [],
+      "starter_recipe_missing_template_ids": [],
+      "style_profile_missing_template_ids": [],
+      "palette_token_missing_template_ids": [],
+      "qa_gate_missing_template_ids": []
+    }
+  },
   "evidence_renderer_policy": {
     "r_first_compliant": true,
     "current_r_ggplot2_evidence_template_count": 34,
@@ -25,23 +48,23 @@
   "included_files": [
     {
       "path": "medical_display_gallery.pdf",
-      "sha256": "e68ae575fab3e852c1a80b25d059cca479fc6e613dfe3fab6dadf8f00e58b576"
+      "sha256": "cc9185af62b0eec7e7f5df564f2e4d7617550c0446fd2578ca5b1a75a46a54fa"
     },
     {
       "path": "gallery_manifest.json",
-      "sha256": "7b18976b6eb06fbb0efca7d1259fb38c7b4d09fdcf1ed586e7d8d2283f486276"
+      "sha256": "f9e96a571e48f338d24b0786ef05cd1f9122a4f7aac6469c1dbc565b65876b96"
     },
     {
       "path": "medical_display_gallery_reference.md",
-      "sha256": "b32007c4aeb05ca2f7ab28ffb0617c3864989461a67a86213baf7d2370f13be3"
+      "sha256": "77282f0991513ffc4e8ab75a77fb9444fc673c1be737d701258a1a69364d4534"
     },
     {
       "path": "display_pack_gallery_status.md",
-      "sha256": "25e7bdeaa5456052d839b506f8b70cf623d3a8f43c94d1646c06fcaedf07185e"
+      "sha256": "34716672a9863794d537ff8e95ef9d4c5dd5ad1dae680091c183652560c29838"
     },
     {
       "path": "display_pack_gallery_quality_audit.md",
-      "sha256": "8558dd390cd9ae84cc5d7cdd093b4b64d8864d9db50ad88c8a3a434c1068c835"
+      "sha256": "dc026ccc85f8129210678f05fe61b1645b5b1dab1dd385158623893c7b8150f8"
     }
   ],
   "excluded_intermediate_outputs": [

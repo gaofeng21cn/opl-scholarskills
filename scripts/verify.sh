@@ -76,6 +76,7 @@ for token in [
     "refs-only",
     "materialized_candidate_package",
     "gallery/medical-display/medical_display_gallery.pdf",
+    "scholarskills_scientific_figure_quality_floor.v1",
     "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
     "critic_review_ref",
 ]:
@@ -95,6 +96,24 @@ if display_quality_floor.get("graphical_abstract_strategy") != "brief_first_refe
     fail("Display graphical abstract strategy must avoid single-template reuse")
 if display_quality_floor.get("current_gallery_graphical_abstract_status") != "lower_bound_design_shell_not_reusable_template_authority":
     fail("Display graphical abstract gallery status must be lower-bound only")
+scientific_floor = display_quality_floor.get("scientific_figure_quality_floor_policy", {})
+if scientific_floor.get("policy_id") != "scholarskills_scientific_figure_quality_floor.v1":
+    fail("Display scientific figure quality floor policy id is missing")
+if scientific_floor.get("scope") != "all_scientific_display_candidates_not_only_graphical_abstract":
+    fail("Display scientific figure quality floor must cover all scientific display candidates")
+learned_patterns = set(scientific_floor.get("learned_scientific_figure_patterns") or [])
+for pattern in [
+    "figure_contract_before_plotting",
+    "reference_selection_and_style_brief",
+    "candidate_generation_before_owner_gate",
+    "critic_review_or_route_back",
+    "reference_target_preserve_list",
+    "final_size_readability_inspection",
+    "vector_export_when_possible",
+    "source_data_statistics_and_claim_refs_preserved",
+]:
+    if pattern not in learned_patterns:
+        fail(f"Display scientific figure quality floor missing pattern {pattern}")
 minimum_candidate_refs = set(display_quality_floor.get("minimum_candidate_refs") or [])
 for ref in [
     "core_claim_and_evidence_chain_ref",
@@ -107,6 +126,18 @@ for ref in [
 ]:
     if ref not in minimum_candidate_refs:
         fail(f"Display quality floor missing minimum candidate ref {ref}")
+scientific_required_refs = set(scientific_floor.get("required_before_gallery_or_paper_use") or [])
+for ref in [
+    "figure_contract_ref",
+    "reference_selection_ref",
+    "style_brief_ref",
+    "critic_review_ref",
+    "final_size_inspection_ref",
+    "source_preservation_ref",
+    "domain_owner_gate_ref",
+]:
+    if ref not in scientific_required_refs:
+        fail(f"Display scientific figure quality floor missing required ref {ref}")
 external_learning_sources = {
     item.get("source") for item in display_quality_floor.get("external_learning_refs") or []
 }
@@ -142,6 +173,15 @@ if quality_summary.get("publication_ready_claim_authorized") is not False:
     fail("gallery must not authorize publication-ready claims")
 if snapshot.get("publication_ready_claim_authorized") is not False:
     fail("snapshot must not authorize publication-ready claims")
+quality_audit = read_text("gallery/medical-display/display_pack_gallery_quality_audit.md")
+for token in [
+    "通用科研做图 Quality Floor",
+    "mas_scientific_figure_quality_floor.v1",
+    "reference_target_preserve_list",
+    "source_preservation_ref",
+]:
+    if token not in quality_audit:
+        fail(f"gallery quality audit missing scientific quality-floor token: {token}")
 
 for item in snapshot.get("included_files", []):
     relative = "gallery/medical-display/" + item["path"]
