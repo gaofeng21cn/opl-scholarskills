@@ -7,15 +7,20 @@
   "source_manifest_schema_version": 9,
   "status": "rendered",
   "force_render": false,
-  "package_only": false,
+  "package_only": true,
   "asset_reuse": {
-    "status": "reuse_output_asset_root",
-    "copied_file_count": 0
+    "status": "target_already_complete",
+    "source_asset_root": "docs/delivery/medical-display/examples/medical_display_gallery_assets",
+    "target_asset_root": "outputs/display-pack-gallery/medical_display_gallery_assets",
+    "copied_file_count": 0,
+    "missing_source_count": 0,
+    "skipped_existing_count": 186,
+    "extension_counts": {}
   },
   "render_cache_summary": {
-    "cache_hit": 36,
-    "cache_miss": 1,
-    "package_only": 0,
+    "cache_hit": 0,
+    "cache_miss": 0,
+    "package_only": 37,
     "cache_untracked": 0
   },
   "html_path": "outputs/display-pack-gallery/medical_display_gallery.html",
