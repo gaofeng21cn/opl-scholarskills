@@ -83,7 +83,8 @@
       ],
       "output_schema_refs": [
         "display-pack-contract.v2#candidate_artifact_refs",
-        "scholarskills_execution_receipt.v1#display"
+        "scholarskills_execution_receipt.v1#display",
+        "scholarskills_display_quality_floor.v1#brief_reference_candidate_critic_refs"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_display_v1",
@@ -107,6 +108,24 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "display_pack_candidate_output",
           "body_policy": "body_owned_by_domain_artifact_surface"
+        },
+        {
+          "ref_id": "graphical_abstract_visual_brief",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "graphical_abstract_brief_and_storyboard",
+          "body_policy": "refs_only_brief_owned_by_consuming_domain"
+        },
+        {
+          "ref_id": "reference_guided_style_brief",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "reference_selection_and_style_floor",
+          "body_policy": "refs_only_style_target_not_template_authority"
+        },
+        {
+          "ref_id": "ai_visual_critic_review",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "visual_quality_floor_review",
+          "body_policy": "critic_review_hint_requires_domain_owner_gate"
         }
       ],
       "receipt_policy": {
@@ -123,11 +142,76 @@
         "evidence_kind": "candidate_visual_quality_refs",
         "required_ref_shapes": [
           "template_ref",
+          "figure_contract_ref",
+          "reference_selection_ref",
+          "style_brief_ref",
           "dependency_run_context_ref",
           "candidate_artifact_ref",
-          "visual_review_receipt_ref"
+          "visual_review_receipt_ref",
+          "critic_review_ref",
+          "final_size_inspection_ref"
         ],
         "can_claim_quality_verdict": false
+      },
+      "display_quality_floor_policy": {
+        "policy_id": "scholarskills_display_quality_floor.v1",
+        "graphical_abstract_strategy": "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
+        "current_gallery_graphical_abstract_status": "lower_bound_design_shell_not_reusable_template_authority",
+        "minimum_candidate_refs": [
+          "core_claim_and_evidence_chain_ref",
+          "figure_contract_ref",
+          "reference_selection_ref",
+          "style_brief_ref",
+          "candidate_artifact_ref",
+          "critic_review_ref",
+          "final_size_inspection_ref",
+          "domain_owner_gate_ref"
+        ],
+        "ai_executor_freedom": "AI may choose the most suitable figure form, layout, panel hierarchy, and rendering backend from paper-local claims and evidence; this policy only raises the quality floor.",
+        "external_learning_refs": [
+          {
+            "source": "K-Dense-AI/scientific-agent-skills",
+            "observed_head": "9c9bd2e92af12311ecd0c1a643e0931643f9ea04",
+            "classification": "adapt",
+            "pattern": "discoverable skill pack with provenance and topic-specific scientific communication skills"
+          },
+          {
+            "source": "Yuan1z0825/nature-skills",
+            "observed_head": "6edea02edb9c65d6ce6c5d7e720d0f8d9b7fce27",
+            "classification": "adapt",
+            "pattern": "figure contract before plotting, backend-specific execution, and final visual QA"
+          },
+          {
+            "source": "google-research/papervizagent",
+            "observed_head": "e088a8fff74cc363b6897c0843631fff76484908",
+            "classification": "adapt",
+            "pattern": "reference-driven retriever, planner, stylist, visualizer, and critic pipeline"
+          },
+          {
+            "source": "dwzhu-pku/PaperBanana",
+            "observed_head": "836455537e863b5a2f40dace487a782c0bc5ef94",
+            "classification": "adapt",
+            "pattern": "multi-candidate academic illustration generation with critic rounds"
+          },
+          {
+            "source": "VILA-Lab/FigMirror",
+            "observed_head": "e3d3331e12602bd242e8bd15cebe42b490a82198",
+            "classification": "adapt",
+            "pattern": "reference style target plus reviewer preserve list to prevent drift"
+          },
+          {
+            "source": "dazhiyang/scientific-plotting-skill",
+            "observed_head": "980cbf9328b4224268dd5fff99c1f2f8158e69cc",
+            "classification": "adapt",
+            "pattern": "small hard plotting rules for vector export, color, size, typography, and parameter blocks"
+          }
+        ],
+        "forbidden_shortcuts": [
+          "reuse_current_gallery_graphical_abstract_as_final_template",
+          "treat_style_reference_as_data_or_claim_authority",
+          "skip_ai_visual_critic_review",
+          "claim_quality_verdict_without_domain_owner_gate"
+        ]
       },
       "authority_boundary": {
         "can_claim_domain_ready": false,

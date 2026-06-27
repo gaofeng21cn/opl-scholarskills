@@ -13,6 +13,23 @@ Gallery 放在本 ScholarSkills repo，是因为本 repo 是 skill pack 的 sour
 
 Gallery 只能证明有人可审的可视样例和 manifest surface 存在；它不能证明真实论文 figure ready、visual parity 完成、owner accepted、publication ready、current package ready 或 artifact authority。
 
+## Graphical Abstract 口径
+
+当前 gallery 中的 `submission_graphical_abstract` 只应视为 `lower_bound_design_shell_not_reusable_template_authority`。它暴露的问题不是单个 PNG/SVG 细节可以补救，而是把 graphical abstract 当作固定模板复用：真实 graphical abstract 的结构取决于论文主张、证据链、目标期刊、读者路径和参考风格。单个 Python/SVG shell 只能给出下限示例，不能稳定承担跨论文复用。
+
+后续 `Scholar Display` 使用 graphical abstract 时，最小可接受候选链路是：
+
+- `core_claim_and_evidence_chain_ref`
+- `figure_contract_ref`
+- `reference_selection_ref`
+- `style_brief_ref`
+- `candidate_artifact_ref`
+- `critic_review_ref`
+- `final_size_inspection_ref`
+- `domain_owner_gate_ref`
+
+AI 执行者可以按论文局部事实自行选择更合适的图型、布局、面板层级、渲染后端和候选数量；本仓只规定质量下限和 refs-only handoff，不限制上限。参考图只能作为 style target 或 reviewer rubric，不能作为数据来源、claim authority、template authority 或 publication-ready 证据。
+
 ## 人审入口
 
 当前 repo-local gallery refs：

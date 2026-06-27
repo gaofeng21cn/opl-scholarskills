@@ -79,3 +79,17 @@ For `opl.scholarskills.display`, use this repo's compact gallery review package:
 - `gallery/medical-display/gallery_snapshot.json`
 
 The package is copied from MAS Display Pack final docs/gallery surfaces for direct human review. Treat these refs as human review and visual-audit preview refs only. They do not prove publication readiness, owner acceptance, artifact authority, or paper truth. Local workspace and quest installs should copy only these compact review refs when needed, not the gallery build workspace or intermediate outputs. MAS remains the owner for medical display truth, actual figure artifacts, visual audit receipts, and publication gates.
+
+## Display Quality Floor
+
+For graphical abstracts and other design-led display work, do not reuse the current gallery `submission_graphical_abstract` as a final template. Treat it as a lower-bound design shell only.
+
+Use `Scholar Display` policy `brief_first_reference_guided_ai_candidate_not_single_template_reuse` as a refs-only quality-floor workflow:
+
+1. Start from the paper-local core claim, evidence chain, figure contract, target audience, journal/export needs, and forbidden claim drift.
+2. Select or cite style references, then produce a style brief. A reference is a visual target, not data truth, claim authority, or a template authority.
+3. Let the AI executor choose the suitable figure form, layout, panel hierarchy, renderer, and candidate count. The skill raises the lower bound; it must not cap the upper bound.
+4. Require candidate refs for `core_claim_and_evidence_chain_ref`, `figure_contract_ref`, `reference_selection_ref`, `style_brief_ref`, `candidate_artifact_ref`, `critic_review_ref`, `final_size_inspection_ref`, and `domain_owner_gate_ref`.
+5. Run an AI/VLM or human visual critic pass before owner consumption. The critic should check semantic claim fit, reference-style adherence, label readability at final size, overlap, panel hierarchy, visual drift, and source/evidence preservation.
+
+This policy adapts current external patterns from `scientific-agent-skills`, `nature-skills`, `PaperVizAgent` / `PaperBanana`, `FigMirror`, and a minimal scientific plotting skill. It does not install those runtimes, import their agents, or authorize publication readiness. MAS or the consuming domain owner still decides accept / reject / route-back.

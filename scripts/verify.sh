@@ -76,12 +76,50 @@ for token in [
     "refs-only",
     "materialized_candidate_package",
     "gallery/medical-display/medical_display_gallery.pdf",
+    "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
+    "critic_review_ref",
 ]:
     if token not in skill:
         fail(f"SKILL.md missing required token: {token}")
 
 gallery_manifest = read_json("gallery/medical-display/gallery_manifest.json")
 snapshot = read_json("gallery/medical-display/gallery_snapshot.json")
+display_module = next(
+    (item for item in modules if item.get("module_id") == "opl.scholarskills.display"),
+    None,
+)
+if display_module is None:
+    fail("contract missing Display module")
+display_quality_floor = display_module.get("display_quality_floor_policy", {})
+if display_quality_floor.get("graphical_abstract_strategy") != "brief_first_reference_guided_ai_candidate_not_single_template_reuse":
+    fail("Display graphical abstract strategy must avoid single-template reuse")
+if display_quality_floor.get("current_gallery_graphical_abstract_status") != "lower_bound_design_shell_not_reusable_template_authority":
+    fail("Display graphical abstract gallery status must be lower-bound only")
+minimum_candidate_refs = set(display_quality_floor.get("minimum_candidate_refs") or [])
+for ref in [
+    "core_claim_and_evidence_chain_ref",
+    "figure_contract_ref",
+    "reference_selection_ref",
+    "style_brief_ref",
+    "critic_review_ref",
+    "final_size_inspection_ref",
+    "domain_owner_gate_ref",
+]:
+    if ref not in minimum_candidate_refs:
+        fail(f"Display quality floor missing minimum candidate ref {ref}")
+external_learning_sources = {
+    item.get("source") for item in display_quality_floor.get("external_learning_refs") or []
+}
+for source in [
+    "K-Dense-AI/scientific-agent-skills",
+    "Yuan1z0825/nature-skills",
+    "google-research/papervizagent",
+    "dwzhu-pku/PaperBanana",
+    "VILA-Lab/FigMirror",
+    "dazhiyang/scientific-plotting-skill",
+]:
+    if source not in external_learning_sources:
+        fail(f"Display quality floor missing external learning source {source}")
 if gallery_manifest.get("status") != "rendered":
     fail("gallery manifest status must be rendered")
 expected_counts = {
