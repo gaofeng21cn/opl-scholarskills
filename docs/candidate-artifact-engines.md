@@ -40,6 +40,8 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 
 每个 body 都携带模块专属 `engine_id`、`engine_version`、`input_requirements`、`validation_checks`、`engine_receipt_ref`、`payload_sha256`、`body_sha256`、`body_policy=opl_generated_non_authoritative_candidate_body_requires_domain_owner_consumption` 和全 false `authority_flags`。JSON body 的根对象是 `opl_scholarskills_executable_candidate_artifact`；Markdown/SVG body 也会嵌入 engine id、payload hash、owner-gate requirement 和 no-authority boundary。`manifest.json`、`module_candidate.json`、`execution_receipt_candidate.json`、`refs_manifest.json` 和顶层 readback 会记录 `candidate_artifact_bodies[].body_path`、`body_ref`、`body_sha256`、`body_format`、`engine_id`、`engine_receipt_ref`、`validation_status`、`input_requirements`、`body_policy` 与 authority flags。
 
+Candidate body 应优先服务 MAS 的 AI 自动候选判断，而不是把判断默认推给人类。只要 evidence 足够，engine/readback 应暴露 `verdict_candidate`、`route_back_candidate`、`stop_or_continue_recommendation` 和可机读 AI-consumable evidence refs；只有越权到 domain truth、publication readiness、owner receipt、typed blocker、artifact authority、current package authority 或真实 human gate 时才停止在 owner surface。
+
 当前十个 engine 是 OPL-owned deterministic candidate builder：
 
 - Display: `scholar_display_candidate_visual_plan_engine`
@@ -67,6 +69,8 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 - Write 从 `Master-cai/Research-Paper-Writing-Skills`、ARS、PaperOrchestra 和 `kennethkhoocy/lit-review-orchestrator` 吸收 `section_outline_ref`、`reverse_outline_ref`、`claim_evidence_map_ref`、`source_trace_ref`、`unsupported_claim_route_back_ref`、`section_draft_manifest_ref` 和 `confirm_or_drop_source_verification_ref`。
 - Review 从 ARS reviewer、PaperOrchestra refinement 和 `kennethkhoocy/lit-review-orchestrator` 吸收 `reviewer_report_ref`、`adversarial_review_ref`、`revision_action_ref`、`halt_or_revert_rule_ref`、`route_back_ref`、`residual_risk_ref` 和 `confirm_or_drop_source_verification_ref`。
 - Submit 从 ARS disclosure/format/rebuttal 和 PaperOrchestra LaTeX sanity 吸收 `submission_checklist_ref`、`journal_rule_ref`、`format_sanity_ref`、`ai_disclosure_ref`、`rebuttal_audit_ref`、`export_package_ref`；Submit 不能 authorize publication readiness。
+
+新增学习源只学 pattern，不接 runtime：Parsifal 提供 systematic-review protocol、screening decision 和 exclusion reason 形状；paper-search-mcp 提供可机读 search/query/source refs；LocalCitationNetwork 提供 citation graph、seed-paper expansion 和 local network audit 形状；lit-review-orchestrator 提供 literature workflow orchestration、gap map 和 handoff refs；AI-Scientist、FAROS、AutoR 提供自动实验/写作/review loop 的 `verdict_candidate`、`route_back_candidate`、budgeted retry 和 stop/continue decision pattern。ScholarSkills engine 只把这些模式转成 deterministic candidate bodies 和 AI-consumable evidence，不安装或调用外部 runtime。
 
 ## Data Storage Candidate Refs
 

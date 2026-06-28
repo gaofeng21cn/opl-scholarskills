@@ -18,9 +18,11 @@ Machine boundary: 人读公开入口。机器真相以 `.codex-plugin/plugin.jso
   <img src="assets/branding/opl-scholarskills-overview.png" alt="OPL ScholarSkills 学术能力流转示意图" width="100%" />
 </p>
 
-`OPL ScholarSkills` 把学术工作中常见、可复用的能力整理成一个 Codex 技能包。它不是新的论文系统，也不替研究者或领域智能体做最终判断；它的作用是让 Codex、MAS 和其他 OPL 智能体在需要图表、表格、统计、文献、写作、审阅、投稿和数据整理能力时，有一组稳定、可发现、边界清楚的能力入口。
+`OPL ScholarSkills` 把学术工作中常见、可复用的能力整理成一个 Codex 技能包。它不是新的论文系统，也不替 MAS 或其他领域智能体写入最终 truth；它的作用是让 Codex、MAS 和其他 OPL 智能体在需要图表、表格、统计、文献、写作、审阅、投稿和数据整理能力时，有一组稳定、可发现、边界清楚的能力入口。
 
 简单说：ScholarSkills 负责把“可以帮忙做什么、需要什么材料、会交出什么候选结果、最后由谁确认”讲清楚。最终论文真相、成果采纳、质量判断和投稿决策仍然回到对应的领域负责人或智能体。
+
+运行原则是 progress-first 和 AI auto-judgment-first。MAS 不是“AI 只执行、人类才判断”：只要现有证据足够形成候选判断，AI 就应继续给出 AI-consumable evidence、`verdict_candidate`、`route_back_candidate` 和 stop/continue recommendations。只有下一步会越权写入 domain truth、publication readiness、owner receipt、typed blocker，或遇到真实 human gate，才交回 domain owner 或人类。
 
 <table>
   <tr>

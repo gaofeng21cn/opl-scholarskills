@@ -72,6 +72,10 @@ Display 的 quality floor 现在覆盖通用科研做图，不只 graphical abst
 
 新增外部学习同样覆盖 Tables、Stats、Omics、Lit、Write、Review、Submit、Data 和 Intake，但只落到 refs-only module contract 与 deterministic candidate engine。进度优先：智能体可以先产出 candidate refs/checklists 并继续进入 owner gate；缺少外部 runtime 安装不阻塞推进，除非 owner 明确要求那个 runtime 生成的可执行 artifact。
 
+本轮外部学习还吸收 Parsifal、paper-search-mcp、LocalCitationNetwork、lit-review-orchestrator、AI-Scientist、FAROS 和 AutoR 的可迁移模式。落点是文献筛选/排除理由、检索与 citation graph 证据、local citation-network audit、literature-review orchestration、自动实验/写作流程中的 reviewer loop、route-back budget 和 stop/continue decision pattern；不接入这些项目的 runtime，不把它们变成 MAS authority，也不要求先安装外部服务才能推进 ScholarSkills candidate refs。
+
+MAS 消费 ScholarSkills 时采用 `progress_first_ai_auto_judgment_first`：AI 能根据 evidence refs 判断的内容应尽量自动判断，并输出 AI-consumable evidence、`verdict_candidate`、`route_back_candidate` 和 `stop_or_continue_recommendation`。只有判断会越权到 domain truth、publication readiness、owner receipt、typed blocker、artifact authority、current package authority 或真实 human gate 时，才停止在 ScholarSkills 侧并交给 MAS/domain owner。
+
 当 `materialize --emit-candidate-artifacts` 显式启用时，ScholarSkills 会调用十个 OPL-owned deterministic candidate artifact engine，为每个模块写出专业候选体、`input_requirements`、`validation_checks`、`engine_receipt_ref` 和 sha256 refs。Display 输出 SVG visual-plan candidate；Write/Review/Submit 输出 Markdown candidate；Tables/Stats/Omics/Lit/Data/Intake 输出 JSON structured candidate。该 engine 输出比 refs-only body 更接近可消费 artifact，但仍保持 `counts_as_paper_truth=false`、`counts_as_owner_receipt=false`、`can_authorize_publication_readiness=false`、`can_claim_quality_verdict=false`、`can_claim_artifact_authority=false`，不能替代 domain owner consumption。
 
 仓内提供 repo-tracked Codex plugin surface：`.codex-plugin/plugin.json` 与 `skills/opl-scholarskills/SKILL.md`。本仓是 ScholarSkills skill pack、module catalog snapshot 和 gallery review refs 的 source of truth；该 skill pack 把 canonical contract snapshot、CLI readback 入口和 no-authority guard 暴露给 Codex discovery / sync layer。它不能替代 OPL Framework 中的 executable `opl scholar-skills *` CLI、domain owner receipt、typed blocker、runtime evidence 或 paper artifact authority。

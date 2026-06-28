@@ -506,5 +506,64 @@ for relative in ["README.md", "README.zh-CN.md", "AGENTS.md", "TASTE.md"]:
     if "publication ready" not in lower and "publication-ready" not in lower and "publication readiness" not in lower:
         fail(f"{relative} must mention publication readiness boundary")
 
+required_doc_tokens = {
+    "README.md": [
+        "progress-first",
+        "AI auto-judgment-first",
+        "AI-consumable evidence",
+        "verdict_candidate",
+        "route_back_candidate",
+        "stop/continue recommendations",
+    ],
+    "README.zh-CN.md": [
+        "progress-first",
+        "AI auto-judgment-first",
+        "AI-consumable evidence",
+        "verdict_candidate",
+        "route_back_candidate",
+        "stop/continue recommendations",
+    ],
+    "skills/opl-scholarskills/SKILL.md": [
+        "MAS Progress And AI Judgment Rules",
+        "AI auto-judgment-first",
+        "stop_or_continue_recommendation",
+        "Missing external runtime installation is not a blocker",
+        "Only authority surfaces block ScholarSkills progression",
+    ],
+    "docs/capability-modules.md": [
+        "progress_first_ai_auto_judgment_first",
+        "AI-consumable evidence",
+        "verdict_candidate",
+        "route_back_candidate",
+        "stop_or_continue_recommendation",
+        "Parsifal",
+        "paper-search-mcp",
+        "LocalCitationNetwork",
+        "lit-review-orchestrator",
+        "AI-Scientist",
+        "FAROS",
+        "AutoR",
+    ],
+    "docs/candidate-artifact-engines.md": [
+        "AI-consumable evidence",
+        "verdict_candidate",
+        "route_back_candidate",
+        "stop_or_continue_recommendation",
+        "Parsifal",
+        "paper-search-mcp",
+        "LocalCitationNetwork",
+        "lit-review-orchestrator",
+        "AI-Scientist",
+        "FAROS",
+        "AutoR",
+        "不接 runtime",
+    ],
+}
+for relative, tokens in required_doc_tokens.items():
+    text = read_text(relative)
+    for token in tokens:
+        if token not in text:
+            fail(f"{relative} missing required AI judgment token: {token}")
+
 print("verify ok: opl-scholarskills plugin, contract, gallery package, and no-authority boundaries are valid")
 PY

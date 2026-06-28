@@ -31,6 +31,14 @@ The local install is refs-only and authority false. It may include this Skill en
 - Use ScholarSkills outputs as refs-only candidates. Do not present CLI readbacks, materialized packages, or tests as runtime-ready, domain-ready, quality verdict, publication readiness, artifact authority, owner receipt, typed blocker, or production readiness.
 - Respect the MAS owner gate: MAS or another domain owner must consume candidate refs and issue the owner receipt, typed blocker, reviewer receipt, route-back, or domain artifact mutation. Do not write MAS, Yang, runtime DB, queue, owner receipt, typed blocker, current package authority, publication eval, controller decision, or domain truth surfaces from this skill.
 
+## MAS Progress And AI Judgment Rules
+
+- Use progress-first and AI auto-judgment-first routing: AI should continue when available evidence is enough for a candidate judgment, instead of waiting for a human by default.
+- Provide AI-consumable evidence plus `verdict_candidate`, `route_back_candidate`, and `stop_or_continue_recommendation` refs whenever the module can judge a candidate handoff.
+- Missing external runtime installation is not a blocker for refs-only candidate judgment, checklist generation, or route-back recommendation. It blocks only when a named owner requires that runtime's executable artifact.
+- Only authority surfaces block ScholarSkills progression: domain truth, publication readiness, owner receipt, typed blocker, artifact authority, current package authority, or a real human gate.
+- If evidence is insufficient, produce the smallest `route_back_candidate` that names the missing evidence, owner surface, and next legal entry point; do not create a typed blocker from this skill.
+
 ## Modules
 
 The ten OPL ScholarSkills modules are:

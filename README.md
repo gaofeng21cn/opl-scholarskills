@@ -22,6 +22,8 @@ Machine boundary: Human-readable public entry. Machine truth remains in `.codex-
 
 In practical terms, ScholarSkills says what each capability can help with, what material it needs, what candidate handoff it can prepare, and who must review the result. The domain owner still owns study truth, artifact authority, quality judgment, acceptance, and publication decisions.
 
+The operating rule is progress-first and AI auto-judgment-first. MAS should let AI judge everything that can be judged from available evidence, and ScholarSkills should supply AI-consumable evidence, `verdict_candidate`, `route_back_candidate`, and stop/continue recommendations. Work goes to the domain owner or human only when the next action would cross into domain truth, publication readiness, owner receipt, typed blocker creation, or a real human gate.
+
 <table>
   <tr>
     <td width="33%" valign="top">
