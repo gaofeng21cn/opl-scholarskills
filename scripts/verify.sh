@@ -153,6 +153,7 @@ for source in [
         fail(f"Display quality floor missing external learning source {source}")
 if gallery_manifest.get("status") != "rendered":
     fail("gallery manifest status must be rendered")
+
 expected_counts = {
     "visual_gallery_template_count": 37,
     "evidence_gallery_template_count": 34,

@@ -46,6 +46,18 @@ The ten OPL ScholarSkills modules are:
 - `opl.scholarskills.data` - Scholar Data
 - `opl.scholarskills.intake` - Scholar Intake
 
+## Scholar Data Storage Guardrails
+
+For large medical cohort datasets, `opl.scholarskills.data` must keep data management refs explicit instead of treating every file copy as a durable version. The module expects refs that separate:
+
+- authoritative release bodies from convenience interchange files, indexed working copies, study-local extracts, reports, caches, and runtime artifacts;
+- hot / warm / cold / external placement and the reason each tier is allowed;
+- manifest-declared body inventory, registry lineage, semantic readiness, study binding, privacy/access tier, and retention guardrails;
+- analytical format strategy for repeated local work, including CSV interchange plus SQLite/DuckDB/Parquet working copies when appropriate, without making a working copy a second truth source;
+- byte-level cold-store restore proof, checksum, owner authorization, and rehydrate verification before any clinical dataset body leaves online storage.
+
+These refs follow FAIR-style metadata discipline and data package resource inventories, but they remain refs-only candidate guidance. They do not authorize moving, thinning, deleting, compacting, or publishing a clinical dataset. MAS or the consuming domain owner must issue the retention decision, owner receipt, typed blocker, or route-back evidence.
+
 ## CLI
 
 Use the standard CLI surface:

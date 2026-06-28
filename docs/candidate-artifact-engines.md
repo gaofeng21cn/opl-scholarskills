@@ -55,6 +55,12 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 
 这些 engine 可以生成更专业的可消费候选体、输入要求、质量检查清单和 receipt metadata；它们不运行 MAS/MAG/RCA domain workflow，不做医学分析裁决，不签 owner receipt，也不把候选体晋级为论文 truth。
 
+## Data Storage Candidate Refs
+
+Data candidate body 应优先暴露 `data_manifest_ref`、`dataset_manifest_ref`、`metadata_scrape_ref`、`source_lineage_ref`、`artifact_bundle_manifest_ref`、`data_dictionary_ref`、`agent_log_aggregation_ref`、`privacy_access_tier_ref`、`retention_guardrail_ref`、`storage_tier_ref`、`authoritative_body_boundary_ref`、`derived_copy_inventory_ref`、`analytical_format_strategy_ref`、`cold_restore_proof_ref` 和 `read_model_boundary_ref`。这些 refs 借鉴 paper library 的 metadata/source organization、data package resource inventory、FAIR metadata discipline 和 Parquet/DuckDB-style large-table analytical layout，但只作为 domain owner gate 的候选输入。
+
+对于医学队列数据，Data engine 的存储候选体必须把受限原始层、去标识 source-semantic 层、分析冻结层、study-local 派生物、runtime/cache 残留分开表达。CSV、SQLite、DuckDB 或 Parquet 可以是高效分析布局，但除非 domain manifest 明确升级，它们不能互相覆盖 source of truth；任何 dataset body 下线都需要 cold-store checksum、restore index、owner authorization 和 rehydrate verification。
+
 ## Authority Guard
 
 这些 body 是 OPL-generated candidate artifacts，只能作为 domain owner gate 的输入或 handoff refs。它们不能声明：
