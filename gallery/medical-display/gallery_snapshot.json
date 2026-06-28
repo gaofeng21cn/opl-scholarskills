@@ -2,6 +2,7 @@
   "schema_version": 1,
   "surface_kind": "opl_scholarskills_display_gallery_snapshot",
   "source_repo": "med-autoscience",
+  "source_commit": "3f4bf8a30",
   "source_paths": [
     "docs/delivery/medical-display/examples/medical_display_gallery.pdf",
     "docs/delivery/medical-display/examples/gallery_manifest.json",
@@ -9,7 +10,7 @@
     "docs/delivery/medical-display/examples/display_pack_gallery_status.md",
     "docs/delivery/medical-display/examples/display_pack_gallery_quality_audit.md"
   ],
-  "snapshot_created_utc": "2026-06-27T23:51:04Z",
+  "snapshot_created_utc": "2026-06-28T01:02:39Z",
   "status": "rendered",
   "visual_gallery_template_count": 37,
   "evidence_gallery_template_count": 34,
@@ -62,7 +63,7 @@
   "included_files": [
     {
       "path": "medical_display_gallery.pdf",
-      "sha256": "3e59d9900c285b30ae673f6674553ace9942fa6a7da5b987f72dd44adf24399f"
+      "sha256": "796e8b4e0b87ac2449beb69d086986d3b5c8e884bf8d44ae2eb1e173fa1dcecf"
     },
     {
       "path": "gallery_manifest.json",
@@ -78,7 +79,7 @@
     },
     {
       "path": "display_pack_gallery_quality_audit.md",
-      "sha256": "b0ff43f67a6dc326f6a12a885cf95e56fdd9039f63aeada8d31af14db3137fb6"
+      "sha256": "83774e089b8accd6d1b5ffbe393d583bc44a25152abd4ffb09652708838f266b"
     }
   ],
   "excluded_intermediate_outputs": [
