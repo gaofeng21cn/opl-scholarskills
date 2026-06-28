@@ -345,7 +345,8 @@
       ],
       "output_schema_refs": [
         "scholarskills_tables_output_refs.v1",
-        "scholarskills_tables_learned_pattern_refs.v1#table_shell_metric_alignment_qc"
+        "scholarskills_tables_learned_pattern_refs.v1#table_shell_metric_alignment_qc",
+        "scholarskills_tables_metric_registry_refs.v1#result_metric_table_alignment"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_tables_v1"
@@ -398,6 +399,18 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "claim_to_table_alignment_review",
           "body_policy": "alignment_hint_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "dataset_metric_benchmark_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "dataset_metric_benchmark_candidate",
+          "body_policy": "refs_only_metric_table_hint_not_table_truth_or_publication_ready"
+        },
+        {
+          "ref_id": "result_metric_registry_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "result_metric_registry_candidate",
+          "body_policy": "refs_only_metric_table_hint_not_table_truth_or_publication_ready"
         }
       ],
       "receipt_policy": {
@@ -417,7 +430,9 @@
           "metric_extraction_ref",
           "booktabs_or_minimal_ink_table_ref",
           "table_qc_ref",
-          "claim_table_alignment_ref"
+          "claim_table_alignment_ref",
+          "dataset_metric_benchmark_ref",
+          "result_metric_registry_ref"
         ],
         "can_claim_quality_verdict": false
       },
@@ -450,16 +465,20 @@
         "classification": "adapt_refs_only",
         "source_patterns": [
           "Master-cai/Research-Paper-Writing-Skills: table shell and paper-claim alignment",
-          "Ar9av/PaperOrchestra: metric extraction and table/LaTeX sanity discipline"
+          "Ar9av/PaperOrchestra: metric extraction and table/LaTeX sanity discipline",
+          "Papers-with-Code/SOTA: result registry pattern for benchmark-aware table metric refs"
         ],
         "required_ref_shapes": [
           "table_shell_ref",
           "metric_extraction_ref",
           "booktabs_or_minimal_ink_table_ref",
           "table_qc_ref",
-          "claim_table_alignment_ref"
+          "claim_table_alignment_ref",
+          "dataset_metric_benchmark_ref",
+          "result_metric_registry_ref"
         ],
-        "authority_boundary": "refs_only_table_handoff_not_table_truth_quality_verdict_or_publication_ready_claim"
+        "authority_boundary": "refs_only_table_handoff_not_table_truth_quality_verdict_or_publication_ready_claim",
+        "ai_judgment_policy": "ai_may_emit_metric_table_alignment_verdict_candidate_or_route_back_candidate_but_cannot_claim_table_truth_domain_truth_quality_verdict_owner_receipt_or_publication_readiness"
       }
     },
     {
@@ -476,7 +495,8 @@
       ],
       "output_schema_refs": [
         "scholarskills_stats_output_refs.v1",
-        "scholarskills_stats_learned_pattern_refs.v1#analysis_plan_metric_reproducibility_review"
+        "scholarskills_stats_learned_pattern_refs.v1#analysis_plan_metric_reproducibility_review",
+        "scholarskills_stats_metric_registry_refs.v1#dataset_metric_benchmark_result_registry"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_stats_v1"
@@ -523,6 +543,18 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "statistical_review_candidate",
           "body_policy": "review_hint_not_statistical_verdict"
+        },
+        {
+          "ref_id": "dataset_metric_benchmark_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "dataset_metric_benchmark_candidate",
+          "body_policy": "refs_only_metric_registry_hint_not_statistical_conclusion"
+        },
+        {
+          "ref_id": "result_metric_registry_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "result_metric_registry_candidate",
+          "body_policy": "refs_only_metric_registry_hint_not_statistical_conclusion"
         }
       ],
       "receipt_policy": {
@@ -540,7 +572,9 @@
           "source_data_ref",
           "statistical_review_ref",
           "effect_size_or_metric_extraction_ref",
-          "reproducibility_check_ref"
+          "reproducibility_check_ref",
+          "dataset_metric_benchmark_ref",
+          "result_metric_registry_ref"
         ],
         "can_claim_quality_verdict": false,
         "can_claim_statistical_conclusion": false
@@ -574,15 +608,19 @@
         "classification": "adapt_refs_only",
         "source_patterns": [
           "Ar9av/PaperOrchestra: analysis plan decomposition and reviewer loop",
-          "Imbad0202/academic-research-skills: reproducibility and statistical-review checklist as owner-gate input"
+          "Imbad0202/academic-research-skills: reproducibility and statistical-review checklist as owner-gate input",
+          "Papers-with-Code/SOTA: dataset metric benchmark and result registry pattern for method/result comparison refs"
         ],
         "required_ref_shapes": [
           "analysis_plan_ref",
           "effect_size_or_metric_extraction_ref",
           "reproducibility_check_ref",
-          "statistical_review_ref"
+          "statistical_review_ref",
+          "dataset_metric_benchmark_ref",
+          "result_metric_registry_ref"
         ],
-        "authority_boundary": "refs_only_statistical_review_handoff_cannot_claim_statistical_conclusion_quality_verdict_or_domain_truth"
+        "authority_boundary": "refs_only_statistical_review_handoff_cannot_claim_statistical_conclusion_quality_verdict_or_domain_truth",
+        "ai_judgment_policy": "ai_may_emit_metric_comparison_verdict_candidate_or_route_back_candidate_but_cannot_claim_statistical_conclusion_domain_truth_owner_receipt_or_publication_readiness"
       }
     },
     {
@@ -724,7 +762,8 @@
       ],
       "output_schema_refs": [
         "scholarskills_lit_output_refs.v1",
-        "scholarskills_lit_external_learning_refs.v1#query_citation_evidence_map"
+        "scholarskills_lit_external_learning_refs.v1#query_citation_evidence_map",
+        "scholarskills_lit_slr_citation_external_refs.v1#protocol_snowball_search_confirm_drop"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_lit_v1"
@@ -789,6 +828,48 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "claim_support_candidate",
           "body_policy": "refs_only_literature_hint_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "systematic_review_protocol_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "systematic_review_protocol_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "inclusion_exclusion_criteria_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "inclusion_exclusion_criteria_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "data_extraction_schema_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "slr_data_extraction_schema_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "quality_appraisal_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "quality_appraisal_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "citation_graph_snowball_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "citation_graph_snowball_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "multi_source_paper_search_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "multi_source_paper_search_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "confirm_or_drop_source_verification_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "confirm_or_drop_source_verification_candidate",
+          "body_policy": "refs_only_literature_candidate_requires_domain_owner_gate"
         }
       ],
       "receipt_policy": {
@@ -809,7 +890,14 @@
           "source_verification_ref",
           "citation_coverage_ref",
           "evidence_map_ref",
-          "metadata_scrape_ref"
+          "metadata_scrape_ref",
+          "systematic_review_protocol_ref",
+          "inclusion_exclusion_criteria_ref",
+          "data_extraction_schema_ref",
+          "quality_appraisal_ref",
+          "citation_graph_snowball_ref",
+          "multi_source_paper_search_ref",
+          "confirm_or_drop_source_verification_ref"
         ],
         "can_claim_quality_verdict": false
       },
@@ -844,14 +932,23 @@
           "Imbad0202/academic-research-skills",
           "Imbad0202/academic-research-skills-codex",
           "Ar9av/PaperOrchestra",
-          "Future-Scholars/paperlib"
+          "Future-Scholars/paperlib",
+          "vitorfs/parsifal",
+          "openags/paper-search-mcp",
+          "LocalCitationNetwork",
+          "kennethkhoocy/lit-review-orchestrator"
         ],
         "adapted_patterns": [
           "query_scoped_literature_workflow",
           "citation_manifest_before_claim_use",
           "source_verification_and_coverage_gap_map",
           "metadata_scrape_receipt_before_evidence_map",
-          "claim_support_route_back_when_sources_do_not_cover_claim"
+          "claim_support_route_back_when_sources_do_not_cover_claim",
+          "systematic_review_protocol_and_criteria_before_screening",
+          "slr_data_extraction_schema_and_quality_appraisal_as_candidate_refs",
+          "citation_graph_snowball_and_multi_source_search_before_evidence_map",
+          "confirm_or_drop_source_verification_candidate_before_claim_use",
+          "ai_may_emit_source_verdict_candidate_or_route_back_candidate_not_literature_verdict"
         ],
         "authority_boundary": "refs_only_candidate_evidence_map_not_domain_literature_verdict",
         "required_ref_shapes": [
@@ -861,8 +958,16 @@
           "citation_coverage_ref",
           "evidence_map_ref",
           "metadata_scrape_ref",
-          "claim_support_ref"
-        ]
+          "claim_support_ref",
+          "systematic_review_protocol_ref",
+          "inclusion_exclusion_criteria_ref",
+          "data_extraction_schema_ref",
+          "quality_appraisal_ref",
+          "citation_graph_snowball_ref",
+          "multi_source_paper_search_ref",
+          "confirm_or_drop_source_verification_ref"
+        ],
+        "ai_judgment_policy": "ai_may_generate_confirm_drop_source_verdict_candidate_and_route_back_candidate_but_cannot_sign_domain_truth_owner_receipt_or_publication_readiness"
       }
     },
     {
@@ -879,7 +984,8 @@
       ],
       "output_schema_refs": [
         "scholarskills_write_output_refs.v1",
-        "scholarskills_write_external_learning_refs.v1#outline_trace_draft"
+        "scholarskills_write_external_learning_refs.v1#outline_trace_draft",
+        "scholarskills_write_source_verification_refs.v1#confirm_drop_before_draft_use"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_write_v1"
@@ -938,6 +1044,12 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "section_draft_manifest_candidate",
           "body_policy": "refs_only_writing_hint_not_paper_body_authority"
+        },
+        {
+          "ref_id": "confirm_or_drop_source_verification_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "confirm_or_drop_source_verification_candidate",
+          "body_policy": "refs_only_writing_source_check_not_paper_body_authority"
         }
       ],
       "receipt_policy": {
@@ -960,7 +1072,8 @@
           "claim_evidence_map_ref",
           "source_trace_ref",
           "unsupported_claim_route_back_ref",
-          "section_draft_manifest_ref"
+          "section_draft_manifest_ref",
+          "confirm_or_drop_source_verification_ref"
         ],
         "can_claim_quality_verdict": false
       },
@@ -994,14 +1107,17 @@
         "external_pattern_sources": [
           "Master-cai/Research-Paper-Writing-Skills",
           "Imbad0202/academic-research-skills",
-          "Ar9av/PaperOrchestra"
+          "Ar9av/PaperOrchestra",
+          "kennethkhoocy/lit-review-orchestrator"
         ],
         "adapted_patterns": [
           "section_outline_before_draft",
           "reverse_outline_for_structure_audit",
           "claim_evidence_alignment_before_owner_consumption",
           "source_trace_for_each_section",
-          "unsupported_claims_route_back_to_lit_or_owner"
+          "unsupported_claims_route_back_to_lit_or_owner",
+          "confirm_or_drop_source_verification_before_section_draft_consumption",
+          "ai_route_back_candidate_for_unsupported_or_unverified_sources"
         ],
         "authority_boundary": "refs_only_candidate_draft_manifest_not_paper_body_authority",
         "required_ref_shapes": [
@@ -1010,8 +1126,10 @@
           "claim_evidence_map_ref",
           "source_trace_ref",
           "unsupported_claim_route_back_ref",
-          "section_draft_manifest_ref"
-        ]
+          "section_draft_manifest_ref",
+          "confirm_or_drop_source_verification_ref"
+        ],
+        "ai_judgment_policy": "ai_may_emit_draft_source_use_verdict_candidate_or_route_back_candidate_but_cannot_write_paper_truth_domain_truth_owner_receipt_or_publication_readiness"
       }
     },
     {
@@ -1028,7 +1146,8 @@
       ],
       "output_schema_refs": [
         "scholarskills_review_output_refs.v1",
-        "scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back"
+        "scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back",
+        "scholarskills_review_source_verification_refs.v1#confirm_drop_adversarial_check"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_review_v1"
@@ -1087,6 +1206,12 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "residual_risk_candidate",
           "body_policy": "refs_only_review_hint_not_quality_verdict_or_reviewer_receipt"
+        },
+        {
+          "ref_id": "confirm_or_drop_source_verification_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "confirm_or_drop_source_verification_candidate",
+          "body_policy": "refs_only_review_source_check_not_quality_verdict_or_reviewer_receipt"
         }
       ],
       "receipt_policy": {
@@ -1109,7 +1234,8 @@
           "revision_action_ref",
           "halt_or_revert_rule_ref",
           "route_back_ref",
-          "residual_risk_ref"
+          "residual_risk_ref",
+          "confirm_or_drop_source_verification_ref"
         ],
         "can_claim_quality_verdict": false
       },
@@ -1142,14 +1268,17 @@
         "classification": "adapt_refs_only",
         "external_pattern_sources": [
           "Imbad0202/academic-research-skills",
-          "Ar9av/PaperOrchestra"
+          "Ar9av/PaperOrchestra",
+          "kennethkhoocy/lit-review-orchestrator"
         ],
         "adapted_patterns": [
           "reviewer_report_before_revision",
           "adversarial_review_for_unverified_claims",
           "revision_action_map_with_halt_or_revert_rule",
           "route_back_when_evidence_or_owner_authority_is_missing",
-          "residual_risk_register_before_owner_gate"
+          "residual_risk_register_before_owner_gate",
+          "confirm_or_drop_source_verification_in_adversarial_review",
+          "ai_may_route_back_unverified_source_claims_before_owner_gate"
         ],
         "authority_boundary": "refs_only_review_candidate_not_quality_verdict_or_reviewer_receipt",
         "required_ref_shapes": [
@@ -1158,8 +1287,10 @@
           "revision_action_ref",
           "halt_or_revert_rule_ref",
           "route_back_ref",
-          "residual_risk_ref"
-        ]
+          "residual_risk_ref",
+          "confirm_or_drop_source_verification_ref"
+        ],
+        "ai_judgment_policy": "ai_may_emit_quality_or_source_verdict_candidate_and_route_back_candidate_but_cannot_claim_quality_verdict_domain_truth_reviewer_receipt_owner_receipt_or_publication_readiness"
       }
     },
     {
@@ -1340,7 +1471,8 @@
       "output_schema_refs": [
         "scholarskills_data_output_refs.v1",
         "scholarskills_data_asset_refs.v1",
-        "scholarskills_data_external_learning_refs.v1"
+        "scholarskills_data_external_learning_refs.v1",
+        "scholarskills_data_slr_metric_refs.v1#extraction_schema_quality_appraisal_metric_registry"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_data_v1"
@@ -1375,6 +1507,42 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "metadata_scrape_source_lineage_agent_log_and_bundle_refs",
           "body_policy": "refs_only_lineage_not_domain_truth"
+        },
+        {
+          "ref_id": "systematic_review_protocol_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "systematic_review_protocol_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "inclusion_exclusion_criteria_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "inclusion_exclusion_criteria_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "data_extraction_schema_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "data_extraction_schema_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "quality_appraisal_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "quality_appraisal_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "dataset_metric_benchmark_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "dataset_metric_benchmark_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "result_metric_registry_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "result_metric_registry_candidate",
+          "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
         }
       ],
       "receipt_policy": {
@@ -1408,7 +1576,13 @@
           "source_lineage_ref",
           "artifact_bundle_manifest_ref",
           "data_dictionary_ref",
-          "agent_log_aggregation_ref"
+          "agent_log_aggregation_ref",
+          "systematic_review_protocol_ref",
+          "inclusion_exclusion_criteria_ref",
+          "data_extraction_schema_ref",
+          "quality_appraisal_ref",
+          "dataset_metric_benchmark_ref",
+          "result_metric_registry_ref"
         ],
         "can_claim_quality_verdict": false
       },
@@ -1453,10 +1627,21 @@
             "source": "littlepeachs/NaturePanelForge",
             "classification": "adapt_refs_only",
             "pattern": "paper metadata, dataset/source manifest, run log, review summary, and resumable artifact bundle structure"
+          },
+          {
+            "source": "vitorfs/parsifal",
+            "classification": "adapt_refs_only",
+            "pattern": "systematic review protocol, inclusion/exclusion criteria, data extraction schema, and quality appraisal refs for SLR data handoff"
+          },
+          {
+            "source": "Papers-with-Code/SOTA",
+            "classification": "adapt_refs_only",
+            "pattern": "dataset metric benchmark and result registry patterns as refs-only comparison inputs"
           }
         ],
         "progress_policy": "external_runtime_install_not_required_before_candidate_refs_or_checklists",
-        "no_authority_policy": "candidate_refs_only_requires_domain_owner_gate"
+        "no_authority_policy": "candidate_refs_only_requires_domain_owner_gate",
+        "ai_judgment_policy": "ai_may_emit_data_completeness_metric_registry_verdict_candidate_or_route_back_candidate_but_cannot_claim_dataset_truth_domain_truth_quality_verdict_owner_receipt_or_publication_readiness"
       }
     },
     {

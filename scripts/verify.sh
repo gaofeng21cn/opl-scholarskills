@@ -153,6 +153,20 @@ def require_external_fit(module: dict, expected_sources) -> None:
         if source not in source_blob:
             fail(f"{module.get('module_id')} external fit missing source {source}")
 
+def require_ai_judgment_candidate_policy(module: dict, policy: dict) -> None:
+    token = policy.get("ai_judgment_policy")
+    if not token:
+        fail(f"{module.get('module_id')} missing ai judgment candidate policy")
+    for required in ["candidate", "route_back"]:
+        if required not in token and required.replace("_", "-") not in token:
+            fail(f"{module.get('module_id')} ai judgment policy missing {required}")
+    for forbidden in ["domain_truth", "owner_receipt", "publication_readiness"]:
+        if not re.search(rf"cannot(?:_claim|_sign|_write)?_[a-z_]*{forbidden}", token):
+            fail(f"{module.get('module_id')} ai judgment policy must forbid {forbidden}")
+
+def require_external_fit_ai_policy(module: dict) -> None:
+    require_ai_judgment_candidate_policy(module, module.get("external_learning_module_fit") or {})
+
 display_quality_floor = display_module.get("display_quality_floor_policy", {})
 if display_quality_floor.get("graphical_abstract_strategy") != "brief_first_reference_guided_ai_candidate_not_single_template_reuse":
     fail("Display graphical abstract strategy must avoid single-template reuse")
@@ -291,6 +305,79 @@ for module_id, requirement in module_learning_requirements.items():
         source_tokens=requirement["sources"],
         boundary_tokens=requirement["boundary_tokens"],
     )
+
+slr_citation_data_requirements = {
+    "opl.scholarskills.lit": {
+        "output_schema_refs": ["scholarskills_lit_slr_citation_external_refs.v1#protocol_snowball_search_confirm_drop"],
+        "refs": [
+            "systematic_review_protocol_ref",
+            "inclusion_exclusion_criteria_ref",
+            "data_extraction_schema_ref",
+            "quality_appraisal_ref",
+            "citation_graph_snowball_ref",
+            "multi_source_paper_search_ref",
+            "confirm_or_drop_source_verification_ref",
+        ],
+        "sources": ["vitorfs/parsifal", "openags/paper-search-mcp", "LocalCitationNetwork", "kennethkhoocy/lit-review-orchestrator"],
+        "policy": "learned",
+    },
+    "opl.scholarskills.write": {
+        "output_schema_refs": ["scholarskills_write_source_verification_refs.v1#confirm_drop_before_draft_use"],
+        "refs": ["confirm_or_drop_source_verification_ref"],
+        "sources": ["kennethkhoocy/lit-review-orchestrator"],
+        "policy": "learned",
+    },
+    "opl.scholarskills.review": {
+        "output_schema_refs": ["scholarskills_review_source_verification_refs.v1#confirm_drop_adversarial_check"],
+        "refs": ["confirm_or_drop_source_verification_ref"],
+        "sources": ["kennethkhoocy/lit-review-orchestrator"],
+        "policy": "learned",
+    },
+    "opl.scholarskills.data": {
+        "output_schema_refs": ["scholarskills_data_slr_metric_refs.v1#extraction_schema_quality_appraisal_metric_registry"],
+        "refs": [
+            "systematic_review_protocol_ref",
+            "inclusion_exclusion_criteria_ref",
+            "data_extraction_schema_ref",
+            "quality_appraisal_ref",
+            "dataset_metric_benchmark_ref",
+            "result_metric_registry_ref",
+        ],
+        "sources": ["vitorfs/parsifal", "Papers-with-Code/SOTA"],
+        "policy": "external_fit",
+    },
+    "opl.scholarskills.stats": {
+        "output_schema_refs": ["scholarskills_stats_metric_registry_refs.v1#dataset_metric_benchmark_result_registry"],
+        "refs": ["dataset_metric_benchmark_ref", "result_metric_registry_ref"],
+        "sources": ["Papers-with-Code/SOTA"],
+        "policy": "learned",
+    },
+    "opl.scholarskills.tables": {
+        "output_schema_refs": ["scholarskills_tables_metric_registry_refs.v1#result_metric_table_alignment"],
+        "refs": ["dataset_metric_benchmark_ref", "result_metric_registry_ref"],
+        "sources": ["Papers-with-Code/SOTA"],
+        "policy": "learned",
+    },
+}
+
+for module_id, requirement in slr_citation_data_requirements.items():
+    module = require_module(module_id)
+    require_output_schema(module, requirement["output_schema_refs"])
+    require_artifact_refs(module, requirement["refs"])
+    require_quality_refs(module, requirement["refs"])
+    if requirement["policy"] == "learned":
+        policy = module.get("learned_pattern_policy") or {}
+        require_all(f"{module_id} learned SLR/citation/data refs", policy.get("required_ref_shapes"), requirement["refs"])
+        policy_blob = json.dumps(policy, ensure_ascii=False)
+    else:
+        policy = module.get("external_learning_module_fit") or {}
+        policy_blob = json.dumps(policy.get("sources") or [], ensure_ascii=False)
+        require_external_fit_ai_policy(module)
+    for source in requirement["sources"]:
+        if source not in policy_blob:
+            fail(f"{module_id} missing SLR/citation/data source token {source}")
+    if requirement["policy"] == "learned":
+        require_ai_judgment_candidate_policy(module, policy)
 
 if require_module("opl.scholarskills.stats").get("quality_evidence", {}).get("can_claim_statistical_conclusion") is not False:
     fail("Stats must not claim statistical conclusion")
