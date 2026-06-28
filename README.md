@@ -69,6 +69,12 @@ The design keeps reuse and responsibility separate: ScholarSkills prepares the h
 
 These modules are not ten separate products. They are an academic capability map that OPL, Codex, and MAS can discover and call. Final figures, manuscripts, analysis conclusions, review decisions, and submission actions remain with the owning domain system and human owner gate.
 
+## External Learning Module Fit
+
+External projects such as ARS, PaperOrchestra, Research-Paper-Writing-Skills, Paperlib, SciPilot Figure, NaturePanelForge, Marsilea, and curated figure/resource lists inform ScholarSkills as refs-only module fit. The lessons land as stronger candidate refs and checklists for Display, Tables, Stats, Omics, Lit, Write, Review, Submit, Data, and Intake.
+
+These additions improve progress without forcing agents to install external runtimes first. They add reviewable candidate surfaces such as visual QA previews, citation verification, claim-evidence maps, submission sanity refs, source lineage, and intake provenance; they do not bypass MAS or another domain owner gate.
+
 ## Quick Use
 
 Useful prompts look like this:

@@ -69,6 +69,12 @@ ScholarSkills 的设计目标是把这些能力变成可复用的“能力模块
 
 这些模块不是十套独立产品，而是一组可以被 OPL / Codex / MAS 发现和调用的学术能力地图。真正的图表、论文、分析结论、审稿决策和投稿动作，仍由对应的领域系统和负责人确认。
 
+## 外部学习模块映射
+
+ARS、PaperOrchestra、Research-Paper-Writing-Skills、Paperlib、SciPilot Figure、NaturePanelForge、Marsilea 以及科研图示/资源清单里的可迁移做法，只进入 ScholarSkills 的 refs-only 模块映射。落点是十个模块更强的候选引用和检查清单，而不是引入第二套外部 runtime 或 truth source。
+
+这些优化优先进度：智能体不需要先安装外部 runtime 才能继续推进。它们增加的是可审阅候选面，例如视觉 QA 预览、引用核查、claim-evidence map、投稿 sanity refs、数据 lineage 和 intake provenance；不能绕过 MAS 或其他领域负责人的 owner gate。
+
 ## 一句话使用方式
 
 你可以直接这样让 Codex 或 OPL 智能体调用它：

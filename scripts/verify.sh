@@ -75,10 +75,12 @@ for token in [
     "MAS owner gate",
     "refs-only",
     "materialized_candidate_package",
+    "External Learning Module Fit",
     "gallery/medical-display/medical_display_gallery.pdf",
     "scholarskills_scientific_figure_quality_floor.v1",
     "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
     "critic_review_ref",
+    "external_runtime_install_not_required_before_candidate_refs_or_checklists",
 ]:
     if token not in skill:
         fail(f"SKILL.md missing required token: {token}")
@@ -91,6 +93,66 @@ display_module = next(
 )
 if display_module is None:
     fail("contract missing Display module")
+
+modules_by_id = {item.get("module_id"): item for item in modules}
+
+def require_all(label: str, actual, expected) -> None:
+    actual_set = set(actual or [])
+    for item in expected:
+        if item not in actual_set:
+            fail(f"{label} missing {item}")
+
+def require_module(module_id: str) -> dict:
+    module = modules_by_id.get(module_id)
+    if module is None:
+        fail(f"contract missing {module_id}")
+    return module
+
+def require_artifact_refs(module: dict, refs) -> None:
+    actual = [item.get("ref_id") for item in module.get("artifact_refs") or []]
+    require_all(f"{module.get('module_id')} artifact_refs", actual, refs)
+
+def require_quality_refs(module: dict, refs) -> None:
+    require_all(
+        f"{module.get('module_id')} quality refs",
+        module.get("quality_evidence", {}).get("required_ref_shapes"),
+        refs,
+    )
+    if module.get("quality_evidence", {}).get("can_claim_quality_verdict") is not False:
+        fail(f"{module.get('module_id')} must not claim quality verdict")
+
+def require_output_schema(module: dict, refs) -> None:
+    require_all(f"{module.get('module_id')} output schema refs", module.get("output_schema_refs"), refs)
+
+def require_learned_policy(module: dict, policy_id: str, expected_refs, source_tokens=(), boundary_tokens=()) -> None:
+    policy = module.get("learned_pattern_policy") or {}
+    if policy.get("policy_id") != policy_id:
+        fail(f"{module.get('module_id')} learned pattern policy id must be {policy_id}")
+    if policy.get("classification") != "adapt_refs_only":
+        fail(f"{module.get('module_id')} learned pattern policy must be adapt_refs_only")
+    if expected_refs:
+        require_all(f"{module.get('module_id')} learned pattern required refs", policy.get("required_ref_shapes"), expected_refs)
+    policy_blob = json.dumps(policy, ensure_ascii=False)
+    for token in source_tokens:
+        if token not in policy_blob:
+            fail(f"{module.get('module_id')} learned pattern missing source token {token}")
+    for token in boundary_tokens:
+        if token not in policy_blob:
+            fail(f"{module.get('module_id')} learned pattern boundary missing {token}")
+
+def require_external_fit(module: dict, expected_sources) -> None:
+    external_fit = module.get("external_learning_module_fit") or {}
+    if external_fit.get("policy_id") != "scholarskills_external_learning_module_fit.v1":
+        fail(f"{module.get('module_id')} missing external learning module fit policy")
+    if external_fit.get("progress_policy") != "external_runtime_install_not_required_before_candidate_refs_or_checklists":
+        fail(f"{module.get('module_id')} external runtime progress policy is wrong")
+    if external_fit.get("no_authority_policy") != "candidate_refs_only_requires_domain_owner_gate":
+        fail(f"{module.get('module_id')} no-authority external learning policy is wrong")
+    source_blob = json.dumps(external_fit.get("sources") or [], ensure_ascii=False)
+    for source in expected_sources:
+        if source not in source_blob:
+            fail(f"{module.get('module_id')} external fit missing source {source}")
+
 display_quality_floor = display_module.get("display_quality_floor_policy", {})
 if display_quality_floor.get("graphical_abstract_strategy") != "brief_first_reference_guided_ai_candidate_not_single_template_reuse":
     fail("Display graphical abstract strategy must avoid single-template reuse")
@@ -151,6 +213,133 @@ for source in [
 ]:
     if source not in external_learning_sources:
         fail(f"Display quality floor missing external learning source {source}")
+
+module_learning_requirements = {
+    "opl.scholarskills.display": {
+        "output_schema_refs": ["scholarskills_display_learned_pattern_refs.v1#visual_qa_preview_programmatic_audit_panel_code_review"],
+        "refs": [
+            "visual_qa_preview_ref",
+            "programmatic_figure_audit_ref",
+            "grayscale_color_vision_check_ref",
+            "panel_to_code_review_ref",
+            "complex_heatmap_or_oncoprint_ref",
+        ],
+        "policy_id": "scholarskills_display_external_learning_refs.v1",
+        "sources": ["Haojae/scipilot-figure-skill", "littlepeachs/NaturePanelForge", "Marsilea-viz/marsilea", "Boom5426/Awesome-Virtual-Cell"],
+        "boundary_tokens": ["quality_verdict", "publication_ready"],
+    },
+    "opl.scholarskills.tables": {
+        "output_schema_refs": ["scholarskills_tables_learned_pattern_refs.v1#table_shell_metric_alignment_qc"],
+        "refs": ["table_shell_ref", "metric_extraction_ref", "booktabs_or_minimal_ink_table_ref", "table_qc_ref", "claim_table_alignment_ref"],
+        "policy_id": "scholarskills_tables_external_learning_refs.v1",
+        "sources": ["Master-cai/Research-Paper-Writing-Skills", "Ar9av/PaperOrchestra"],
+        "boundary_tokens": ["table_truth", "publication_ready"],
+    },
+    "opl.scholarskills.stats": {
+        "output_schema_refs": ["scholarskills_stats_learned_pattern_refs.v1#analysis_plan_metric_reproducibility_review"],
+        "refs": ["analysis_plan_ref", "effect_size_or_metric_extraction_ref", "reproducibility_check_ref", "statistical_review_ref"],
+        "policy_id": "scholarskills_stats_external_learning_refs.v1",
+        "sources": ["Ar9av/PaperOrchestra", "Imbad0202/academic-research-skills"],
+        "boundary_tokens": ["statistical_conclusion", "domain_truth"],
+    },
+    "opl.scholarskills.omics": {
+        "output_schema_refs": ["scholarskills_omics_learned_pattern_refs.v1#feature_matrix_visualization_pathway_review"],
+        "refs": ["feature_matrix_qc_ref", "omics_visualization_plan_ref", "pathway_context_ref", "domain_review_ref"],
+        "policy_id": "scholarskills_omics_external_learning_refs.v1",
+        "sources": ["Marsilea-viz/marsilea", "Boom5426/Awesome-Virtual-Cell"],
+        "boundary_tokens": ["omics_truth", "domain_truth"],
+    },
+    "opl.scholarskills.lit": {
+        "output_schema_refs": ["scholarskills_lit_external_learning_refs.v1#query_citation_evidence_map"],
+        "refs": ["query_ref", "citation_manifest_ref", "source_verification_ref", "citation_coverage_ref", "evidence_map_ref", "metadata_scrape_ref", "claim_support_ref"],
+        "policy_id": "scholarskills_lit_external_learning_policy.v1",
+        "sources": ["Imbad0202/academic-research-skills", "Imbad0202/academic-research-skills-codex", "Ar9av/PaperOrchestra", "Future-Scholars/paperlib"],
+        "boundary_tokens": ["literature_verdict"],
+    },
+    "opl.scholarskills.write": {
+        "output_schema_refs": ["scholarskills_write_external_learning_refs.v1#outline_trace_draft"],
+        "refs": ["section_outline_ref", "reverse_outline_ref", "claim_evidence_map_ref", "source_trace_ref", "unsupported_claim_route_back_ref", "section_draft_manifest_ref"],
+        "policy_id": "scholarskills_write_external_learning_policy.v1",
+        "sources": ["Master-cai/Research-Paper-Writing-Skills", "Imbad0202/academic-research-skills", "Ar9av/PaperOrchestra"],
+        "boundary_tokens": ["paper_body_authority"],
+    },
+    "opl.scholarskills.review": {
+        "output_schema_refs": ["scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back"],
+        "refs": ["reviewer_report_ref", "adversarial_review_ref", "revision_action_ref", "halt_or_revert_rule_ref", "route_back_ref", "residual_risk_ref"],
+        "policy_id": "scholarskills_review_external_learning_policy.v1",
+        "sources": ["Imbad0202/academic-research-skills", "Ar9av/PaperOrchestra"],
+        "boundary_tokens": ["quality_verdict", "reviewer_receipt"],
+    },
+    "opl.scholarskills.submit": {
+        "output_schema_refs": ["scholarskills_submit_external_learning_refs.v1#checklist_disclosure_export"],
+        "refs": ["submission_checklist_ref", "journal_rule_ref", "format_sanity_ref", "ai_disclosure_ref", "rebuttal_audit_ref", "export_package_ref"],
+        "policy_id": "scholarskills_submit_external_learning_policy.v1",
+        "sources": ["Imbad0202/academic-research-skills", "Ar9av/PaperOrchestra"],
+        "boundary_tokens": ["publication_readiness"],
+    },
+}
+
+for module_id, requirement in module_learning_requirements.items():
+    module = require_module(module_id)
+    require_output_schema(module, requirement["output_schema_refs"])
+    require_artifact_refs(module, requirement["refs"])
+    require_quality_refs(module, requirement["refs"])
+    require_learned_policy(
+        module,
+        requirement["policy_id"],
+        requirement["refs"],
+        source_tokens=requirement["sources"],
+        boundary_tokens=requirement["boundary_tokens"],
+    )
+
+if require_module("opl.scholarskills.stats").get("quality_evidence", {}).get("can_claim_statistical_conclusion") is not False:
+    fail("Stats must not claim statistical conclusion")
+if require_module("opl.scholarskills.omics").get("quality_evidence", {}).get("can_claim_omics_truth") is not False:
+    fail("Omics must not claim omics truth")
+submit_policy = require_module("opl.scholarskills.submit").get("learned_pattern_policy", {})
+publication_authority = submit_policy.get("publication_readiness_authority", {})
+if publication_authority.get("can_authorize_publication_readiness") is not False:
+    fail("Submit learned policy must not authorize publication readiness")
+
+data_refs = [
+    "data_manifest_ref",
+    "dataset_manifest_ref",
+    "metadata_scrape_ref",
+    "source_lineage_ref",
+    "artifact_bundle_manifest_ref",
+    "data_dictionary_ref",
+    "agent_log_aggregation_ref",
+    "privacy_access_tier_ref",
+    "read_model_boundary_ref",
+    "storage_tier_ref",
+    "authoritative_body_boundary_ref",
+    "derived_copy_inventory_ref",
+    "analytical_format_strategy_ref",
+    "cold_restore_proof_ref",
+]
+data_module = require_module("opl.scholarskills.data")
+require_output_schema(data_module, ["scholarskills_data_external_learning_refs.v1", "scholarskills_data_asset_refs.v1"])
+require_quality_refs(data_module, data_refs)
+require_artifact_refs(data_module, ["scholarskills_data_manifest_candidate", "scholarskills_data_lineage_candidate"])
+require_external_fit(data_module, ["Future-Scholars/paperlib", "Ar9av/PaperOrchestra", "littlepeachs/NaturePanelForge"])
+
+intake_refs = [
+    "source_snapshot_ref",
+    "source_manifest_ref",
+    "upstream_commit_ref",
+    "vendor_provenance_ref",
+    "included_excluded_paths_ref",
+    "dry_run_readback_ref",
+    "input_contract_ref",
+    "adoption_contract_ref",
+    "scope_boundary_ref",
+]
+intake_module = require_module("opl.scholarskills.intake")
+require_output_schema(intake_module, ["scholarskills_intake_external_learning_refs.v1"])
+require_quality_refs(intake_module, intake_refs)
+require_artifact_refs(intake_module, ["scholarskills_intake_source_manifest_candidate", "scholarskills_intake_adoption_candidate"])
+require_external_fit(intake_module, ["Imbad0202/academic-research-skills-codex", "Ar9av/PaperOrchestra", "littlepeachs/NaturePanelForge"])
+
 if gallery_manifest.get("status") != "rendered":
     fail("gallery manifest status must be rendered")
 

@@ -46,6 +46,12 @@ The ten OPL ScholarSkills modules are:
 - `opl.scholarskills.data` - Scholar Data
 - `opl.scholarskills.intake` - Scholar Intake
 
+## External Learning Module Fit
+
+External learning improves module fit by adding candidate refs and checklist items; it does not require installing external runtimes before owner-gated work can move. Display, Tables, Stats, Omics, Lit, Write, Review, Submit, Data, and Intake may all expose learned refs from upstream research-skill, paper-writing, paper-management, figure-QA, and panel-to-code projects, but those refs stay candidate-only.
+
+Keep the progress rule simple: if the consuming agent can produce the module's refs-only checklist, continue toward the MAS/domain owner gate. Missing external runtime installation is not a blocker unless the owner explicitly needs that runtime's executable artifact; the contract policy token is `external_runtime_install_not_required_before_candidate_refs_or_checklists`.
+
 ## Scholar Data Storage Guardrails
 
 For large medical cohort datasets, `opl.scholarskills.data` must keep data management refs explicit instead of treating every file copy as a durable version. The module expects refs that separate:

@@ -55,9 +55,24 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 
 这些 engine 可以生成更专业的可消费候选体、输入要求、质量检查清单和 receipt metadata；它们不运行 MAS/MAG/RCA domain workflow，不做医学分析裁决，不签 owner receipt，也不把候选体晋级为论文 truth。
 
+## 单模块外部学习落点
+
+本轮只吸收外部 repo 的可迁移 ref shape 和质量检查要求，不接入外部 runtime，也不让 ScholarSkills 成为 domain truth owner。
+
+- Display 从 `Haojae/scipilot-figure-skill`、`littlepeachs/NaturePanelForge`、`Marsilea-viz/marsilea` 和 `Boom5426/Awesome-Virtual-Cell` 吸收 `visual_qa_preview_ref`、`programmatic_figure_audit_ref`、`grayscale_color_vision_check_ref`、`panel_to_code_review_ref`、`complex_heatmap_or_oncoprint_ref`。
+- Tables 从 `Master-cai/Research-Paper-Writing-Skills` 和 `Ar9av/PaperOrchestra` 吸收 `table_shell_ref`、`metric_extraction_ref`、`booktabs_or_minimal_ink_table_ref`、`table_qc_ref`、`claim_table_alignment_ref`。
+- Stats 从 `Ar9av/PaperOrchestra` 和 `Imbad0202/academic-research-skills` 吸收 `analysis_plan_ref`、`effect_size_or_metric_extraction_ref`、`reproducibility_check_ref`、`statistical_review_ref`；Stats 不能 claim statistical conclusion。
+- Omics 从 `Marsilea-viz/marsilea` 和 `Boom5426/Awesome-Virtual-Cell` 吸收 `feature_matrix_qc_ref`、`omics_visualization_plan_ref`、`pathway_context_ref`、`domain_review_ref`；Omics 不能 claim omics truth。
+- Lit 从 `Imbad0202/academic-research-skills(-codex)`、`Ar9av/PaperOrchestra` 和 `Future-Scholars/paperlib` 吸收 `query_ref`、`citation_manifest_ref`、`source_verification_ref`、`citation_coverage_ref`、`evidence_map_ref`、`metadata_scrape_ref`、`claim_support_ref`。
+- Write 从 `Master-cai/Research-Paper-Writing-Skills`、ARS 和 PaperOrchestra 吸收 `section_outline_ref`、`reverse_outline_ref`、`claim_evidence_map_ref`、`source_trace_ref`、`unsupported_claim_route_back_ref`、`section_draft_manifest_ref`。
+- Review 从 ARS reviewer 和 PaperOrchestra refinement 吸收 `reviewer_report_ref`、`adversarial_review_ref`、`revision_action_ref`、`halt_or_revert_rule_ref`、`route_back_ref`、`residual_risk_ref`。
+- Submit 从 ARS disclosure/format/rebuttal 和 PaperOrchestra LaTeX sanity 吸收 `submission_checklist_ref`、`journal_rule_ref`、`format_sanity_ref`、`ai_disclosure_ref`、`rebuttal_audit_ref`、`export_package_ref`；Submit 不能 authorize publication readiness。
+
 ## Data Storage Candidate Refs
 
 Data candidate body 应优先暴露 `data_manifest_ref`、`dataset_manifest_ref`、`metadata_scrape_ref`、`source_lineage_ref`、`artifact_bundle_manifest_ref`、`data_dictionary_ref`、`agent_log_aggregation_ref`、`privacy_access_tier_ref`、`retention_guardrail_ref`、`storage_tier_ref`、`authoritative_body_boundary_ref`、`derived_copy_inventory_ref`、`analytical_format_strategy_ref`、`cold_restore_proof_ref` 和 `read_model_boundary_ref`。这些 refs 借鉴 paper library 的 metadata/source organization、data package resource inventory、FAIR metadata discipline 和 Parquet/DuckDB-style large-table analytical layout，但只作为 domain owner gate 的候选输入。
+
+Intake candidate body 应优先暴露 `source_snapshot_ref`、`source_manifest_ref`、`upstream_commit_ref`、`vendor_provenance_ref`、`included_excluded_paths_ref`、`dry_run_readback_ref`、`input_contract_ref`、`adoption_contract_ref` 和 `scope_boundary_ref`。缺少外部 runtime 安装不阻塞候选清单推进；只有 owner 明确要求可执行外部 artifact 时才成为合法前置条件。
 
 对于医学队列数据，Data engine 的存储候选体必须把受限原始层、去标识 source-semantic 层、分析冻结层、study-local 派生物、runtime/cache 残留分开表达。CSV、SQLite、DuckDB 或 Parquet 可以是高效分析布局，但除非 domain manifest 明确升级，它们不能互相覆盖 source of truth；任何 dataset body 下线都需要 cold-store checksum、restore index、owner authorization 和 rehydrate verification。
 
