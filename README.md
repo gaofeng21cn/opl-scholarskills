@@ -68,7 +68,7 @@ Any `owner_receipt_ref`, `typed_blocker_ref`, `reviewer_receipt_ref`, `route_bac
 | **Scholar Write** | Candidate manuscript sections with source tracing for introduction, methods, results, discussion, and related text. |
 | **Scholar Review** | Review reports, route-back evidence, revision suggestions, and next-step entry points. |
 | **Scholar Submit** | Submission packages, checklists, format requirements, and pre-submit preparation. |
-| **Scholar Data** | Data source notes, lineage, variable context, processing routes, storage tiering, derived-copy inventory, restore-proof retention, and reproducibility hints. |
+| **Scholar Data** | Data source notes, lineage, variable context, processing routes, storage tiering, derived-copy inventory, restore-proof retention, completed-project closeout, cold-store catalogs, and reproducibility hints. |
 | **Scholar Intake** | New project, source, or external package intake into a governed research workspace. |
 
 These modules are not ten separate products. They are an academic capability map that OPL, Codex, and MAS can discover and call. Final figures, manuscripts, analysis conclusions, review decisions, and submission actions remain with the owning domain system and human owner gate.

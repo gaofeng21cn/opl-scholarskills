@@ -1540,6 +1540,8 @@
         "derived_copy_inventory_review",
         "analytical_format_strategy_review",
         "cold_restore_proof_review",
+        "cold_store_catalog_review",
+        "completed_project_closeout_review",
         "read_model_boundary_review",
         "metadata_scrape_review",
         "source_lineage_review",
@@ -1553,7 +1555,8 @@
         "scholarskills_data_output_refs.v1",
         "scholarskills_data_asset_refs.v1",
         "scholarskills_data_external_learning_refs.v1",
-        "scholarskills_data_slr_metric_refs.v1#extraction_schema_quality_appraisal_metric_registry"
+        "scholarskills_data_slr_metric_refs.v1#extraction_schema_quality_appraisal_metric_registry",
+        "scholarskills_data_completed_project_closeout_refs.v1"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_data_v1"
@@ -1624,6 +1627,18 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "result_metric_registry_candidate",
           "body_policy": "refs_only_data_candidate_requires_domain_owner_gate"
+        },
+        {
+          "ref_id": "completed_project_closeout_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "completed_or_parked_project_reproducible_audit_closeout_candidate",
+          "body_policy": "refs_only_closeout_candidate_requires_domain_owner_consumption"
+        },
+        {
+          "ref_id": "cold_store_catalog_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "unified_cold_store_retention_catalog_candidate",
+          "body_policy": "refs_only_catalog_not_deletion_authority"
         }
       ],
       "receipt_policy": {
@@ -1657,6 +1672,8 @@
           "derived_copy_inventory_ref",
           "analytical_format_strategy_ref",
           "cold_restore_proof_ref",
+          "cold_store_catalog_ref",
+          "completed_project_closeout_ref",
           "read_model_boundary_ref",
           "data_manifest_ref",
           "metadata_scrape_ref",
@@ -1732,6 +1749,26 @@
         "progress_policy": "external_runtime_install_not_required_before_candidate_refs_or_checklists",
         "no_authority_policy": "candidate_refs_only_requires_domain_owner_gate",
         "ai_judgment_policy": "ai_may_emit_data_completeness_metric_registry_verdict_candidate_or_route_back_candidate_but_cannot_claim_dataset_truth_domain_truth_quality_verdict_owner_receipt_or_publication_readiness"
+      },
+      "retention_closeout_policy": {
+        "policy_id": "scholarskills_data_completed_project_reproducible_audit_closeout.v1",
+        "required_refs": [
+          "important_result_reproduction_ref",
+          "data_body_boundary_ref",
+          "cold_store_catalog_ref",
+          "owner_decision_ref",
+          "study_impact_ref",
+          "post_cleanup_readback_ref"
+        ],
+        "retention_levels": [
+          "hot_current_body",
+          "semantic_reproducible_capsule",
+          "byte_level_reproducible_capsule_when_exact_restore_required",
+          "audit_only_tombstone_with_owner_reproducibility_waiver",
+          "delete_safe_cache"
+        ],
+        "default_completed_project_policy": "Prefer semantic reproducibility over byte preservation of historical process bodies. Preserve current cohort bodies hot; migrate useful historical information into semantic capsules; keep byte-level capsules only for active analysis, legal/regulatory retention, external handoff, or explicit owner decision; delete covered raw history and rebuildable caches.",
+        "no_authority_policy": "Scholar Data may propose closeout refs and catalog shape, but cannot move, thin, delete, compact, publish, sign owner receipt, create typed blocker, or waive reproducibility."
       }
     },
     {

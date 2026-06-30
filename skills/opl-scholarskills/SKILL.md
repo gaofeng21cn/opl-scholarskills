@@ -70,8 +70,11 @@ For large medical cohort datasets, `opl.scholarskills.data` must keep data manag
 - manifest-declared body inventory, registry lineage, semantic readiness, study binding, privacy/access tier, and retention guardrails;
 - analytical format strategy for repeated local work, including CSV interchange plus SQLite/DuckDB/Parquet working copies when appropriate, without making a working copy a second truth source;
 - byte-level cold-store restore proof, checksum, owner authorization, and rehydrate verification before any clinical dataset body leaves online storage.
+- completed or parked project data closeout refs, including exact `completed_project_closeout_ref` and `cold_store_catalog_ref`: important-result reproduction path, data body boundary, unified cold-store catalog, owner decision, study impact, and post-cleanup readback.
 
 These refs follow FAIR-style metadata discipline and data package resource inventories, but they remain refs-only candidate guidance. They do not authorize moving, thinning, deleting, compacting, or publishing a clinical dataset. MAS or the consuming domain owner must issue the retention decision, owner receipt, typed blocker, or route-back evidence.
+
+For completed projects, prefer semantic reproducibility over byte preservation of historical process bodies: keep current cohort bodies hot, migrate useful historical information into semantic reproducible capsules when documented sources and commands can reproduce important results, keep byte-level capsules only when exact restore is required by active analysis, legal/regulatory retention, external handoff, or an explicit owner decision, use audit-only tombstones only after an explicit owner waiver, and delete covered raw history and rebuildable caches.
 
 ## CLI
 
