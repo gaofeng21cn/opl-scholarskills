@@ -54,6 +54,8 @@ ScholarSkills turns them into reusable capability modules:
 
 The design keeps reuse and responsibility separate: ScholarSkills prepares the handoff; the domain owner decides what is accepted.
 
+Any `owner_receipt_ref`, `typed_blocker_ref`, `reviewer_receipt_ref`, `route_back_evidence_ref`, or current-package ref named by ScholarSkills is a downstream owner-consumption target only. It is not evidence that ScholarSkills accepted the work, signed a receipt, created a blocker, or authorized publication/current-package readiness.
+
 ## Ten Capability Modules
 
 | Module | What it is for |

@@ -44,11 +44,17 @@
       "can_claim_runtime_ready": false,
       "can_mutate_artifact_body": false,
       "can_sign_owner_receipt": false,
-      "can_create_typed_blocker": false
+      "can_create_typed_blocker": false,
+      "can_claim_publication_readiness": false,
+      "can_claim_owner_acceptance": false,
+      "can_claim_current_package_authority": false
     },
     "can_write_runtime_state": false,
     "can_claim_runtime_ready": false,
-    "can_claim_domain_ready": false
+    "can_claim_domain_ready": false,
+    "can_claim_publication_readiness": false,
+    "can_claim_owner_acceptance": false,
+    "can_claim_current_package_authority": false
   },
   "authority_boundary": {
     "can_claim_domain_ready": false,
@@ -56,6 +62,9 @@
     "can_claim_artifact_authority": false,
     "can_claim_production_ready": false,
     "can_claim_runtime_ready": false,
+    "can_claim_publication_readiness": false,
+    "can_claim_owner_acceptance": false,
+    "can_claim_current_package_authority": false,
     "can_schedule_runtime": false,
     "can_write_domain_truth": false,
     "can_write_runtime_state": false,
@@ -167,7 +176,13 @@
           "route_back_evidence_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_visual_quality_refs",
@@ -294,6 +309,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -419,7 +437,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_table_quality_refs",
@@ -442,6 +466,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -563,7 +590,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_statistical_quality_refs",
@@ -585,6 +618,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -692,7 +728,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_omics_quality_refs",
@@ -714,6 +756,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -878,7 +923,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_literature_quality_refs",
@@ -907,6 +958,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -1059,7 +1113,13 @@
           "reviewer_receipt_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_writing_quality_refs",
@@ -1083,6 +1143,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -1221,7 +1284,13 @@
           "reviewer_receipt_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_review_quality_refs",
@@ -1245,6 +1314,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -1374,7 +1446,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_submission_quality_refs",
@@ -1394,6 +1472,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -1551,7 +1632,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_data_quality_refs",
@@ -1592,6 +1679,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,
@@ -1708,7 +1798,13 @@
           "typed_blocker_ref"
         ],
         "can_sign_owner_receipt": false,
-        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority"
+        "receipt_body_policy": "domain_owner_receipt_or_typed_blocker_required_for_authority",
+        "refs_role": "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature",
+        "can_claim_owner_acceptance": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_current_package_authority": false,
+        "can_create_typed_blocker": false,
+        "owner_consumption_policy": "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation"
       },
       "quality_evidence": {
         "evidence_kind": "candidate_intake_quality_refs",
@@ -1734,6 +1830,9 @@
         "can_claim_artifact_authority": false,
         "can_claim_production_ready": false,
         "can_claim_runtime_ready": false,
+        "can_claim_publication_readiness": false,
+        "can_claim_owner_acceptance": false,
+        "can_claim_current_package_authority": false,
         "can_schedule_runtime": false,
         "can_write_domain_truth": false,
         "can_write_runtime_state": false,

@@ -56,6 +56,8 @@ publication-ready claim flag 和 artifact fingerprints 由
 
 ScholarSkills 输出的 `visual_audit_or_gallery_preview_ref` 应指向上述 MAS-owned gallery surface 或由 domain owner 接受的后续 gallery/ref。该 ref 是 review hint，不是 artifact body authority。
 
+Gallery manifest 或 snapshot 里的 `rendered`、`covered`、`lower_bound_passed` 与 owner/receipt 字样只能描述人审 refs 和来源快照状态；它们不是 MAS owner acceptance、publication readiness、typed blocker、current package authority 或 artifact authority。
+
 调用链仍保持：
 
 ```text

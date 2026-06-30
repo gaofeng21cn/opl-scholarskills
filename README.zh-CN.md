@@ -54,6 +54,8 @@ ScholarSkills 的设计目标是把这些能力变成可复用的“能力模块
 
 这种设计让学术能力可以被复用，也让权责边界保持清楚：能力模块负责准备和交接，领域负责人负责采纳和定稿。
 
+ScholarSkills 提到的 `owner_receipt_ref`、`typed_blocker_ref`、`reviewer_receipt_ref`、`route_back_evidence_ref` 或 current-package ref 只是下游 owner-consumption 目标；它们不表示 ScholarSkills 已采纳、已签回执、已创建 blocker，也不授权 publication/current-package readiness。
+
 ## 十个能力模块
 
 | 模块 | 用途 |

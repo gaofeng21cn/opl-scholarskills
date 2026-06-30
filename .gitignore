@@ -2,6 +2,7 @@
 .codegraph/
 .codex/
 .omx/
+.worktrees/
 node_modules/
 dist/
 build/

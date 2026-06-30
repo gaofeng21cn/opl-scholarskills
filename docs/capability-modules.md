@@ -135,6 +135,8 @@ MAS current_owner_delta
 
 当前 OPL 侧落地范围是 10 模块 capability catalog、descriptor validation、CLI readback、module-specific refs-only invoke/receipt candidate 与 runtime env bridge refs。真实 domain owner consumption 要回到 MAS 等 domain repo 的 owner surface；OPL 的 unsigned candidate receipt 不会签 owner receipt，也不会把候选图、表、分析、文本、review、submission package、data manifest 或 intake contract 晋级为论文 truth。
 
+Contract 中的 `accepted_receipt_refs` 只表示 MAS/domain owner 可以消费后返回的 ref family；命名为 `owner_receipt_ref`、`typed_blocker_ref`、`reviewer_receipt_ref` 或 `route_back_evidence_ref` 的字段都不是 ScholarSkills 自己已接受、已签发、已阻断或已授权 publication/current-package readiness 的证据。
+
 ## Display Gallery 人审入口
 
 `opl.scholarskills.display` 的人审 gallery 发布包放在本 repo 的 `gallery/medical-display/`，方便安装、运维和审阅时直接打开。该发布包复制自 MAS Display Pack 的最终 docs/gallery surface，只保留 PDF、manifest、reference、status、quality audit 和 snapshot，不复制 MAS 渲染中间目录。

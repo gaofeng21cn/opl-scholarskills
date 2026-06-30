@@ -66,9 +66,44 @@ for module in modules:
         "can_mutate_artifact_body",
         "can_sign_owner_receipt",
         "can_create_typed_blocker",
+        "can_claim_publication_readiness",
+        "can_claim_owner_acceptance",
+        "can_claim_current_package_authority",
     ]:
         if boundary.get(key) is not False:
             fail(f"{module_id} authority flag {key} must be false")
+    receipt_policy = module.get("receipt_policy") or {}
+    if receipt_policy.get("refs_role") != "downstream_owner_consumption_refs_only_not_scholarskills_acceptance_or_signature":
+        fail(f"{module_id} receipt refs must be downstream owner-consumption refs only")
+    if receipt_policy.get("owner_consumption_policy") != "MAS_or_domain_owner_must_issue_owner_receipt_typed_blocker_route_back_or_artifact_mutation":
+        fail(f"{module_id} receipt policy must route authority back to MAS/domain owner")
+    for key in [
+        "can_claim_owner_acceptance",
+        "can_claim_publication_readiness",
+        "can_claim_current_package_authority",
+        "can_create_typed_blocker",
+    ]:
+        if receipt_policy.get(key) is not False:
+            fail(f"{module_id} receipt policy flag {key} must be false")
+
+contract_boundary = contract.get("authority_boundary") or {}
+for key in [
+    "can_claim_publication_readiness",
+    "can_claim_owner_acceptance",
+    "can_claim_current_package_authority",
+]:
+    if contract_boundary.get(key) is not False:
+        fail(f"top-level authority flag {key} must be false")
+bridge = contract.get("runtime_environment_bridge") or {}
+bridge_policy = bridge.get("bridge_envelope_policy") or {}
+for container, label in [(bridge, "runtime bridge"), (bridge_policy, "bridge envelope")]:
+    for key in [
+        "can_claim_publication_readiness",
+        "can_claim_owner_acceptance",
+        "can_claim_current_package_authority",
+    ]:
+        if container.get(key) is not False:
+            fail(f"{label} authority flag {key} must be false")
 
 for token in [
     "authority false",
@@ -81,6 +116,7 @@ for token in [
     "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
     "critic_review_ref",
     "external_runtime_install_not_required_before_candidate_refs_or_checklists",
+    "downstream owner-consumption refs only",
 ]:
     if token not in skill:
         fail(f"SKILL.md missing required token: {token}")
@@ -538,6 +574,7 @@ for pattern in [
     "gallery/**/*.html",
     "gallery/**/*.sidecar.json",
     "gallery/**/*.layout.json",
+    ".worktrees/",
 ]:
     if pattern not in gitignore:
         fail(f".gitignore missing intermediate-output pattern {pattern}")
@@ -556,6 +593,7 @@ required_doc_tokens = {
         "verdict_candidate",
         "route_back_candidate",
         "stop/continue recommendations",
+        "downstream owner-consumption target",
     ],
     "README.zh-CN.md": [
         "progress-first",
@@ -564,6 +602,7 @@ required_doc_tokens = {
         "verdict_candidate",
         "route_back_candidate",
         "stop/continue recommendations",
+        "下游 owner-consumption 目标",
     ],
     "skills/opl-scholarskills/SKILL.md": [
         "MAS Progress And AI Judgment Rules",
@@ -571,6 +610,7 @@ required_doc_tokens = {
         "stop_or_continue_recommendation",
         "Missing external runtime installation is not a blocker",
         "Only authority surfaces block ScholarSkills progression",
+        "downstream owner-consumption refs only",
     ],
     "docs/capability-modules.md": [
         "progress_first_ai_auto_judgment_first",
