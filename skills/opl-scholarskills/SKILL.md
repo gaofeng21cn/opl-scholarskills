@@ -70,7 +70,9 @@ For large medical cohort datasets, `opl.scholarskills.data` must keep data manag
 - manifest-declared body inventory, registry lineage, semantic readiness, study binding, privacy/access tier, and retention guardrails;
 - analytical format strategy for repeated local work, including CSV interchange plus SQLite/DuckDB/Parquet working copies when appropriate, without making a working copy a second truth source;
 - byte-level cold-store restore proof, checksum, owner authorization, and rehydrate verification before any clinical dataset body leaves online storage.
-- completed or parked project data closeout refs, including exact `completed_project_closeout_ref` and `cold_store_catalog_ref`: important-result reproduction path, data body boundary, unified cold-store catalog, owner decision, study impact, and post-cleanup readback.
+- completed or parked project data closeout refs, including exact `data_asset_manifest_ref`, `lifecycle_classification_ref`, `important_result_reproduction_ref`, `data_body_boundary_ref`, `study_impact_ref`, `owner_decision_ref`, `post_cleanup_readback_ref`, `prune_dry_run_ref`, and `cold_store_catalog_ref`.
+
+Lifecycle states are refs-only labels: `hot_current_body`, `warm_parent_or_provenance`, `paper_facing_current`, `active_runtime`, `semantic_closed`, `byte_closed`, `delete_safe_cache`, and `retired_tombstone`. `owner_decision_ref` names the downstream decision target; it is not a ScholarSkills owner decision, deletion approval, retention waiver, or receipt.
 
 These refs follow FAIR-style metadata discipline and data package resource inventories, but they remain refs-only candidate guidance. They do not authorize moving, thinning, deleting, compacting, or publishing a clinical dataset. MAS or the consuming domain owner must issue the retention decision, owner receipt, typed blocker, or route-back evidence.
 

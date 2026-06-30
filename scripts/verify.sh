@@ -430,6 +430,8 @@ data_refs = [
     "metadata_scrape_ref",
     "source_lineage_ref",
     "artifact_bundle_manifest_ref",
+    "data_asset_manifest_ref",
+    "lifecycle_classification_ref",
     "data_dictionary_ref",
     "agent_log_aggregation_ref",
     "privacy_access_tier_ref",
@@ -439,12 +441,97 @@ data_refs = [
     "derived_copy_inventory_ref",
     "analytical_format_strategy_ref",
     "cold_restore_proof_ref",
+    "important_result_reproduction_ref",
+    "data_body_boundary_ref",
+    "study_impact_ref",
+    "owner_decision_ref",
+    "post_cleanup_readback_ref",
+    "prune_dry_run_ref",
+    "cold_store_catalog_ref",
 ]
 data_module = require_module("opl.scholarskills.data")
-require_output_schema(data_module, ["scholarskills_data_external_learning_refs.v1", "scholarskills_data_asset_refs.v1"])
+require_output_schema(
+    data_module,
+    [
+        "scholarskills_data_external_learning_refs.v1",
+        "scholarskills_data_asset_refs.v1",
+        "scholarskills_data_lifecycle_refs.v1#asset_manifest_classification_reproduction_prune_readback",
+    ],
+)
 require_quality_refs(data_module, data_refs)
-require_artifact_refs(data_module, ["scholarskills_data_manifest_candidate", "scholarskills_data_lineage_candidate"])
+require_artifact_refs(
+    data_module,
+    [
+        "scholarskills_data_manifest_candidate",
+        "scholarskills_data_lineage_candidate",
+        "data_asset_manifest_ref",
+        "lifecycle_classification_ref",
+        "important_result_reproduction_ref",
+        "data_body_boundary_ref",
+        "study_impact_ref",
+        "owner_decision_ref",
+        "post_cleanup_readback_ref",
+        "prune_dry_run_ref",
+        "cold_store_catalog_ref",
+    ],
+)
 require_external_fit(data_module, ["Future-Scholars/paperlib", "Ar9av/PaperOrchestra", "littlepeachs/NaturePanelForge"])
+retention_policy = data_module.get("retention_closeout_policy") or {}
+data_lifecycle_refs = [
+    "data_asset_manifest_ref",
+    "lifecycle_classification_ref",
+    "important_result_reproduction_ref",
+    "data_body_boundary_ref",
+    "cold_store_catalog_ref",
+    "owner_decision_ref",
+    "study_impact_ref",
+    "prune_dry_run_ref",
+    "post_cleanup_readback_ref",
+]
+require_all("Data retention lifecycle required refs", retention_policy.get("required_refs"), data_lifecycle_refs)
+require_all(
+    "Data retention lifecycle checks",
+    retention_policy.get("required_checks"),
+    [
+        "data_asset_manifest_declared",
+        "lifecycle_classification_declared",
+        "important_result_reproduction_path_declared",
+        "data_body_boundary_declared",
+        "cold_store_catalog_declared",
+        "owner_decision_target_declared",
+        "study_impact_declared",
+        "prune_dry_run_declared",
+        "post_cleanup_readback_declared",
+        "no_authority_flags_false",
+    ],
+)
+require_all(
+    "Data lifecycle states",
+    retention_policy.get("lifecycle_states"),
+    [
+        "hot_current_body",
+        "warm_parent_or_provenance",
+        "paper_facing_current",
+        "active_runtime",
+        "semantic_closed",
+        "byte_closed",
+        "delete_safe_cache",
+        "retired_tombstone",
+    ],
+)
+for token in [
+    *data_lifecycle_refs,
+    "hot_current_body",
+    "warm_parent_or_provenance",
+    "paper_facing_current",
+    "active_runtime",
+    "semantic_closed",
+    "byte_closed",
+    "delete_safe_cache",
+    "retired_tombstone",
+]:
+    if token not in skill:
+        fail(f"SKILL.md missing Data lifecycle token: {token}")
 
 intake_refs = [
     "source_snapshot_ref",
