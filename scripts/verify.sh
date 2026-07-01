@@ -404,8 +404,11 @@ module_learning_requirements = {
         "boundary_tokens": ["paper_body_authority"],
     },
     "opl.scholarskills.review": {
-        "output_schema_refs": ["scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back"],
-        "refs": ["reviewer_report_ref", "adversarial_review_ref", "revision_action_ref", "halt_or_revert_rule_ref", "route_back_ref", "residual_risk_ref"],
+        "output_schema_refs": [
+            "scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back",
+            "scholarskills_review_registry_initial_draft_refs.v1#registry_quality_floor",
+        ],
+        "refs": ["reviewer_report_ref", "adversarial_review_ref", "revision_action_ref", "halt_or_revert_rule_ref", "route_back_ref", "residual_risk_ref", "registry_initial_draft_quality_floor_ref"],
         "policy_id": "scholarskills_review_external_learning_policy.v1",
         "sources": ["Imbad0202/academic-research-skills", "Ar9av/PaperOrchestra"],
         "boundary_tokens": ["quality_verdict", "reviewer_receipt"],

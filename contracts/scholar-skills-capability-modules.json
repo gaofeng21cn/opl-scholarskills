@@ -1258,7 +1258,8 @@
       "output_schema_refs": [
         "scholarskills_review_output_refs.v1",
         "scholarskills_review_external_learning_refs.v1#adversarial_revision_route_back",
-        "scholarskills_review_source_verification_refs.v1#confirm_drop_adversarial_check"
+        "scholarskills_review_source_verification_refs.v1#confirm_drop_adversarial_check",
+        "scholarskills_review_registry_initial_draft_refs.v1#registry_quality_floor"
       ],
       "dependency_profile_refs": [
         "runtime_env_dependency_profile:scholarskills_review_v1"
@@ -1323,6 +1324,12 @@
           "ref_kind": "candidate_artifact_ref",
           "role": "confirm_or_drop_source_verification_candidate",
           "body_policy": "refs_only_review_source_check_not_quality_verdict_or_reviewer_receipt"
+        },
+        {
+          "ref_id": "registry_initial_draft_quality_floor_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "registry_initial_draft_quality_floor_candidate",
+          "body_policy": "refs_only_registry_review_hint_not_quality_verdict_or_reviewer_receipt"
         }
       ],
       "receipt_policy": {
@@ -1353,6 +1360,7 @@
           "route_back_ref",
           "residual_risk_ref",
           "confirm_or_drop_source_verification_ref",
+          "registry_initial_draft_quality_floor_ref",
           "source_pack_ref",
           "candidate_package_ref",
           "execution_receipt_ref",
@@ -1413,7 +1421,8 @@
           "halt_or_revert_rule_ref",
           "route_back_ref",
           "residual_risk_ref",
-          "confirm_or_drop_source_verification_ref"
+          "confirm_or_drop_source_verification_ref",
+          "registry_initial_draft_quality_floor_ref"
         ],
         "ai_judgment_policy": "ai_may_emit_quality_or_source_verdict_candidate_and_route_back_candidate_but_cannot_claim_quality_verdict_domain_truth_reviewer_receipt_owner_receipt_or_publication_readiness"
       }
