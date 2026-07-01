@@ -2,6 +2,8 @@
 
 ## Unreleased - 2026-04-20
 
+- Tighten `site_held_out_stability_figure` for paper-scale PDF use: transition heatmap cells now use sparse major-share percentage labels only, omit per-cell counts, widen the transition panel, and export `transition_cell_label_policy = "major_share_percent_only_no_counts"` in the layout sidecar so MAS post-PDF visual audit can verify the renderer contract.
+
 - Add `confusion_matrix_heatmap_binary` as the next audited `A/E` binary confusion-matrix slice in the core display pack.
 - Lock its pack-facing contract to `confusion_matrix_heatmap_binary_inputs_v1`, `publication_heatmap`, and the R bounded binary confusion-matrix heatmap renderer path.
 
