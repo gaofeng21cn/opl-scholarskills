@@ -18,7 +18,7 @@ domain-owned artifacts remain with their owning runtime or domain repo.
 | --- | --- | --- |
 | [Capability modules](./capability-modules.md) | Canonical human-readable module library overview | Machine truth stays in `contracts/scholar-skills-capability-modules.json`, skill pack files, source, and OPL Framework readback |
 | [Candidate artifact engines](./candidate-artifact-engines.md) | Candidate artifact body generator boundary and CLI orientation | Candidate artifacts are non-authoritative and require domain owner consumption |
-| [Display gallery](./gallery/display-gallery.md) | Human review entry for Scholar Display gallery refs | Gallery truth belongs to MAS Display Pack / gallery manifests; this repo does not authorize publication readiness |
+| [Display gallery](./gallery/display-gallery.md) | Human review entry for Scholar Display gallery refs | Pack source and compact review refs live in this repo; consuming MAS/domain owners still own paper truth, visual audit receipts, and publication readiness |
 
 ## Growth Rule
 

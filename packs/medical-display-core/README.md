@@ -1,9 +1,9 @@
 # fenggaolab.org.medical-display-core
 
-Owner: `MedAutoScience Medical Display`
+Owner: `OPL ScholarSkills Display`
 Purpose: `repo_local_display_pack_index`
 State: `active_support`
-Machine boundary: This README is a human index for the externalized medical display pack. Machine truth stays in `display_pack.toml`, `templates/*/template.toml`, `config/display_packs.toml`, `src/med_autoscience/display_pack_*`, `src/med_autoscience/display_registry.py`, renderer source, tests, and generated display artifacts. It does not authorize artifact freshness, display rendering success, publication readiness, submission readiness, package readiness, or quality verdicts.
+Machine boundary: This README is a human index for the ScholarSkills-owned externalized medical display source pack. Machine truth stays in `display_pack.toml`, `templates/*/template.toml`, `canonical_template_catalog.json`, renderer source, `gallery/medical-display/gallery_snapshot.json`, and repo-native verification. It does not authorize MAS artifact freshness, display rendering success, publication readiness, submission readiness, package readiness, owner acceptance, or quality verdicts.
 
 Externalized core pack for audited medical display templates.
 
@@ -12,8 +12,9 @@ Externalized core pack for audited medical display templates.
 The pack is maintained like a versioned ggplot2/R display extension:
 
 - template descriptors, renderer source, shared R helpers, example payload contracts, and dependency requirement declarations live in this pack;
-- MAS discovers and calls the pack through `config/display_packs.toml`, registry/catalog surfaces, and paper-level figure contracts;
-- generated Gallery assets, HTML, PDF, manifest, layout sidecars, and parity contact sheets are publishable artifacts, not source truth;
+- ScholarSkills owns the pack source and compact review refs under `gallery/medical-display/`;
+- MAS or another consuming domain owner discovers and calls the pack through its own registry/catalog surfaces and paper-level figure contracts;
+- generated Gallery assets, HTML, PDF, manifest, layout sidecars, and parity contact sheets are publishable review artifacts, not source truth;
 - dependency resolution, package installation, managed R libraries, runtime cache, and doctor flows belong to the OPL Runtime Environment Substrate.
 
 This mirrors mature R package / pkgdown / Quarto practice: code and examples are versioned source, while rendered gallery pages can be rebuilt or repackaged from cached assets when the source inputs have not changed. The pack therefore declares `renderer_dependency_profile.json`; it never installs R packages during rendering and never repairs the host environment.
@@ -71,3 +72,23 @@ Illustration-shell entrypoint also remains stable at:
 The implementation is split under `src/fenggaolab_org_medical_display_core/illustration_shells/` by validator, renderer, and dispatcher.
 
 This keeps the manifest-facing API stable while making evidence-renderer policy simple: current data evidence is R/ggplot2; design expression can use Python/SVG composition.
+
+## Gallery review maintenance
+
+The compact human-review package is maintained in:
+
+- `gallery/medical-display/medical_display_gallery.pdf`
+- `gallery/medical-display/medical_display_gallery_reference.md`
+- `gallery/medical-display/display_pack_gallery_status.md`
+- `gallery/medical-display/display_pack_gallery_quality_audit.md`
+- `gallery/medical-display/gallery_manifest.json`
+- `gallery/medical-display/gallery_snapshot.json`
+
+Validate the pack and review package from this repository:
+
+```bash
+python3 scripts/verify-display-gallery-pack.py --check
+./scripts/verify.sh
+```
+
+The checks require compact review refs, forbid render intermediates, and keep `authority = false`, `publication_ready = false`, `artifact_authority = false`, `owner_receipt_authority = false`, and `typed_blocker_authority = false`. MAS remains responsible for paper-local figure purpose, claim/data binding, visual audit receipts, owner gates, typed blockers, and publication authority.

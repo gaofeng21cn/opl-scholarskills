@@ -121,6 +121,13 @@
           "body_policy": "scholarskills_owned_template_source_refs_only_not_domain_truth"
         },
         {
+          "ref_id": "scholar_display_gallery_review_package_ref",
+          "ref_kind": "candidate_artifact_ref",
+          "role": "compact_human_review_gallery_package",
+          "path": "gallery/medical-display/gallery_snapshot.json",
+          "body_policy": "scholarskills_owned_review_refs_only_not_mas_publication_authority"
+        },
+        {
           "ref_id": "display_pack_agent_orchestration",
           "ref_kind": "candidate_artifact_ref",
           "role": "display_pack_candidate_output",
@@ -214,7 +221,9 @@
       "display_quality_floor_policy": {
         "policy_id": "scholarskills_display_quality_floor.v1",
         "source_pack_ref": "packs/medical-display-core/display_pack.toml",
+        "gallery_review_package_ref": "gallery/medical-display/gallery_snapshot.json",
         "source_pack_policy": "generic_template_renderer_source_authority_false",
+        "gallery_review_package_policy": "compact_review_refs_authority_false",
         "graphical_abstract_strategy": "brief_first_reference_guided_ai_candidate_not_single_template_reuse",
         "current_gallery_graphical_abstract_status": "lower_bound_design_shell_not_reusable_template_authority",
         "minimum_candidate_refs": [

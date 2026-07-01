@@ -110,7 +110,7 @@ For `opl.scholarskills.display`, use this repo's compact gallery review package:
 - `gallery/medical-display/gallery_manifest.json`
 - `gallery/medical-display/gallery_snapshot.json`
 
-The package is copied from MAS Display Pack final docs/gallery surfaces for direct human review. Treat these refs as human review and visual-audit preview refs only. They do not prove publication readiness, owner acceptance, artifact authority, or paper truth. Local workspace and quest installs should copy only these compact review refs when needed, not the gallery build workspace or intermediate outputs. MAS remains the owner for medical display truth, actual figure artifacts, visual audit receipts, and publication gates.
+The package is maintained in this repository beside the ScholarSkills-owned `packs/medical-display-core` source pack for direct human review. Treat these refs as human review and visual-audit preview refs only. They do not prove publication readiness, owner acceptance, artifact authority, or paper truth. Local workspace and quest installs should copy only these compact review refs when needed, not the gallery build workspace or intermediate outputs. MAS remains the owner for medical display truth, actual figure artifacts, visual audit receipts, and publication gates.
 
 ## Scholar Display Pack
 

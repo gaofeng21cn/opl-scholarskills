@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+python3 scripts/verify-display-gallery-pack.py --check
+
 python3 - <<'PY'
 import hashlib
 import json
@@ -169,11 +171,17 @@ for forbidden_pattern in ["*.png", "*.svg", "*.html", "*.layout.json", "*render_
 display_refs = json.dumps(display_module.get("artifact_refs") or [], ensure_ascii=False)
 if "scholar_display_pack_source_ref" not in display_refs:
     fail("Display module missing scholar_display_pack_source_ref")
+if "scholar_display_gallery_review_package_ref" not in display_refs:
+    fail("Display module missing scholar_display_gallery_review_package_ref")
 display_floor = display_module.get("display_quality_floor_policy") or {}
 if display_floor.get("source_pack_ref") != "packs/medical-display-core/display_pack.toml":
     fail("Display module source_pack_ref must point at Scholar Display source pack")
+if display_floor.get("gallery_review_package_ref") != "gallery/medical-display/gallery_snapshot.json":
+    fail("Display module gallery_review_package_ref must point at Scholar Display review package")
 if display_floor.get("source_pack_policy") != "generic_template_renderer_source_authority_false":
     fail("Display module source_pack_policy must keep authority false")
+if display_floor.get("gallery_review_package_policy") != "compact_review_refs_authority_false":
+    fail("Display module gallery_review_package_policy must keep authority false")
 
 modules_by_id = {item.get("module_id"): item for item in modules}
 
@@ -602,12 +610,16 @@ def require_gallery_import_policy(container: dict, label: str) -> None:
     policy = container.get("opl_scholarskills_import_policy") or {}
     if policy.get("policy_id") != "opl_scholarskills_display_gallery_refs_only_source_manifest.v1":
         fail(f"{label} missing ScholarSkills gallery refs-only import policy")
-    if policy.get("import_role") != "human_review_ref_and_source_snapshot":
-        fail(f"{label} gallery import role must stay refs/source snapshot only")
-    if policy.get("source_repo") != "med-autoscience":
-        fail(f"{label} gallery source repo must remain med-autoscience")
-    if policy.get("source_authority") != "mas_display_pack_owner_surfaces":
-        fail(f"{label} gallery source authority must remain MAS display pack owner surfaces")
+    if policy.get("import_role") != "pack_native_human_review_ref_and_source_snapshot":
+        fail(f"{label} gallery import role must stay pack-native refs/source snapshot only")
+    if policy.get("source_repo") != "opl-scholarskills":
+        fail(f"{label} gallery source repo must remain opl-scholarskills")
+    if policy.get("source_authority") != "opl_scholarskills_display_pack_review_surface":
+        fail(f"{label} gallery source authority must remain ScholarSkills display review surface")
+    if not str(policy.get("source_snapshot_ref") or "").startswith("repo-local:gallery/medical-display/"):
+        fail(f"{label} gallery import policy must use a repo-local source_snapshot_ref")
+    if "not_self_referential" not in str(policy.get("source_commit_policy") or ""):
+        fail(f"{label} gallery import policy must not use a self-referential source commit")
     if policy.get("no_second_truth") is not True:
         fail(f"{label} gallery import policy must explicitly forbid second truth")
     require_all(
@@ -757,6 +769,19 @@ required_doc_tokens = {
         "AI-Scientist",
         "FAROS",
         "AutoR",
+    ],
+    "docs/gallery/display-gallery.md": [
+        "source pack",
+        "compact gallery review refs",
+        "scripts/verify-display-gallery-pack.py --check",
+        "publication gate",
+    ],
+    "packs/medical-display-core/README.md": [
+        "ScholarSkills-owned externalized medical display source pack",
+        "gallery/medical-display/gallery_snapshot.json",
+        "scripts/verify-display-gallery-pack.py --check",
+        "authority = false",
+        "publication_ready = false",
     ],
     "docs/candidate-artifact-engines.md": [
         "AI-consumable evidence",

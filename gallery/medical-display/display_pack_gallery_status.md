@@ -1,9 +1,9 @@
-# MAS 医学论文配图 Gallery 生成状态
+# ScholarSkills 医学论文配图 Gallery 状态
 
-Owner: `MedAutoScience`
-Purpose: `generated_display_pack_gallery_status`
+Owner: `OPL ScholarSkills Display`
+Purpose: `display_pack_gallery_review_status`
 State: `generated_active_support`
-Machine boundary: 本文由 `scripts/build-display-pack-gallery.py --publish-docs` 从 Gallery manifest / canonical catalog 生成。机器真相继续归 template descriptor、canonical catalog、Gallery manifest、layout sidecar、renderer source、tests、真实论文 artifact、visual-audit receipt、owner receipt 和 publication gate。
+Machine boundary: 本文是 compact review package 的人读状态。机器真相归 `packs/medical-display-core/` template descriptor、canonical catalog、Gallery manifest、Gallery snapshot、renderer source 和 repo-native verification；真实论文 artifact、visual-audit receipt、owner receipt 和 publication gate 仍归 MAS / consuming domain owner。
 
 ## 当前数量口径
 
@@ -22,8 +22,8 @@ Machine boundary: 本文由 `scripts/build-display-pack-gallery.py --publish-doc
 | Page-level composition recipes | 6 |
 | Composition storyboard gallery pages | 6 |
 | LidocaineQ reference coverage audit | 33/33 |
-| LidocaineQ visual parity audit | /Users/gaofeng/workspace/med-autoscience/outputs/display-pack-gallery/lidocaineq_visual_parity_audit.md |
-| LidocaineQ parity contact sheet | /Users/gaofeng/workspace/med-autoscience/outputs/display-pack-gallery/lidocaineq_visual_parity_contact_sheet.png |
+| LidocaineQ visual parity audit | external source audit ref, not included in compact review package |
+| LidocaineQ parity contact sheet | external source audit ref, not included in compact review package |
 | Render cache hit | 0 |
 | Render cache miss | 0 |
 | Package-only reused assets | 37 |
@@ -60,11 +60,11 @@ Package-only 打包复用状态：`synced_from_docs_mirror`；复制资产数：
 - figure workflow policy: `mas_nature_skills_figure_workflow_lifecycle.v1`
 - composition recipe policy: `mas_medical_figure_composition_recipes.v1`
 - LidocaineQ 33 项参考覆盖完整: `true`
-- LidocaineQ 33 项逐图视觉审计: `/Users/gaofeng/workspace/med-autoscience/outputs/display-pack-gallery/lidocaineq_visual_parity_audit.md`
+- LidocaineQ 33 项逐图视觉审计: `external source audit ref, not included in compact review package`
 
 ## LidocaineQ 质量审计面
 
-LidocaineQ 33 项是学习和质量审计输入，不作为 Gallery 永久章节。Gallery 只展示 MAS current canonical templates；逐图视觉对比、差距和修复状态写入独立审计文件与 contact sheet。
+LidocaineQ 33 项是学习和质量审计输入，不作为 Gallery 永久章节。Gallery 只展示 current canonical templates；逐图视觉对比、差距和修复状态保留为外部审计 refs，不进入 compact review package。
 
 | Reference template | MAS current template | Mapping relation | Status |
 | --- | --- | --- | --- |

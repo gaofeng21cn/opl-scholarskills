@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
   "surface_kind": "opl_scholarskills_display_gallery_snapshot",
-  "source_repo": "med-autoscience",
-  "source_commit": "a0022e376",
+  "source_repo": "opl-scholarskills",
+  "source_snapshot_ref": "repo-local:gallery/medical-display/gallery_snapshot.json",
+  "source_commit_policy": "not_self_referential; verify included_files sha256 and repo commit at release/readback time",
   "source_paths": [
     "docs/delivery/medical-display/examples/medical_display_gallery.pdf",
     "docs/delivery/medical-display/examples/gallery_manifest.json",
@@ -12,10 +13,11 @@
   ],
   "opl_scholarskills_import_policy": {
     "policy_id": "opl_scholarskills_display_gallery_refs_only_source_manifest.v1",
-    "import_role": "human_review_ref_and_source_snapshot",
-    "source_repo": "med-autoscience",
-    "source_commit": "a0022e376",
-    "source_authority": "mas_display_pack_owner_surfaces",
+    "import_role": "pack_native_human_review_ref_and_source_snapshot",
+    "source_repo": "opl-scholarskills",
+    "source_snapshot_ref": "repo-local:gallery/medical-display/gallery_snapshot.json",
+    "source_commit_policy": "not_self_referential; verify included_files sha256 and repo commit at release/readback time",
+    "source_authority": "opl_scholarskills_display_pack_review_surface",
     "no_second_truth": true,
     "allowed_uses": [
       "gallery_review_ref",
@@ -95,19 +97,19 @@
     },
     {
       "path": "gallery_manifest.json",
-      "sha256": "6b647dd321733c0a0ea28f84c98ad12776cab01fae455924e69146f94e064829"
+      "sha256": "4f09a4850ce5e7e445084962ccb5ec175f1d4d6d52ae93833c992459ae55cf11"
     },
     {
       "path": "medical_display_gallery_reference.md",
-      "sha256": "77282f0991513ffc4e8ab75a77fb9444fc673c1be737d701258a1a69364d4534"
+      "sha256": "399e09e3811e959920304828049d6ffc0b94d18f5469c01bcca8328cb1d679d2"
     },
     {
       "path": "display_pack_gallery_status.md",
-      "sha256": "0426e7de9c22f2525a6899d3b0984754d9d0616e36baacf83df2e4144e2e2e0e"
+      "sha256": "a151a43d8a4dac31a53e63d94025c0e35c6868b971b919d303cf612ea52ba786"
     },
     {
       "path": "display_pack_gallery_quality_audit.md",
-      "sha256": "83774e089b8accd6d1b5ffbe393d583bc44a25152abd4ffb09652708838f266b"
+      "sha256": "4e86d1b1fd0a51139f498c6b4953a641696924bac3231582f3515e3bde9757f9"
     }
   ],
   "excluded_intermediate_outputs": [
