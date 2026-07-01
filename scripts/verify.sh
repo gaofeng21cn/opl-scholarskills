@@ -313,6 +313,8 @@ for pattern in [
     "final_size_readability_inspection",
     "vector_export_when_possible",
     "source_data_statistics_and_claim_refs_preserved",
+    "figure_table_count_and_clinical_value_floor",
+    "figure_polish_skill_alignment_before_owner_gate",
 ]:
     if pattern not in learned_patterns:
         fail(f"Display scientific figure quality floor missing pattern {pattern}")
@@ -337,6 +339,8 @@ for ref in [
     "final_size_inspection_ref",
     "source_preservation_ref",
     "domain_owner_gate_ref",
+    "figure_table_volume_and_clinical_value_ref",
+    "figure_polish_alignment_ref",
 ]:
     if ref not in scientific_required_refs:
         fail(f"Display scientific figure quality floor missing required ref {ref}")
@@ -443,6 +447,83 @@ for module_id, requirement in module_learning_requirements.items():
         source_tokens=requirement["sources"],
         boundary_tokens=requirement["boundary_tokens"],
     )
+
+medical_sci_initial_draft_requirements = {
+    "opl.scholarskills.display": {
+        "refs": ["figure_table_volume_and_clinical_value_ref", "figure_polish_alignment_ref"],
+    },
+    "opl.scholarskills.lit": {
+        "output_schema_refs": ["scholarskills_lit_medical_sci_draft_refs.v1#reference_integrity_floor"],
+        "refs": ["reference_integrity_floor_ref"],
+    },
+    "opl.scholarskills.write": {
+        "output_schema_refs": ["scholarskills_write_medical_sci_draft_refs.v1#body_volume_and_prose_floor"],
+        "refs": ["manuscript_body_volume_floor_ref", "internal_report_prose_route_back_ref"],
+    },
+    "opl.scholarskills.review": {
+        "output_schema_refs": ["scholarskills_review_medical_sci_initial_draft_refs.v1#citation_body_display_prose_boundary"],
+        "refs": [
+            "reference_integrity_floor_ref",
+            "manuscript_body_volume_floor_ref",
+            "figure_table_volume_and_clinical_value_ref",
+            "internal_report_prose_route_back_ref",
+            "figure_polish_alignment_ref",
+            "registry_descriptive_scientific_boundary_ref",
+        ],
+    },
+}
+
+for module_id, requirement in medical_sci_initial_draft_requirements.items():
+    module = require_module(module_id)
+    if requirement.get("output_schema_refs"):
+        require_output_schema(module, requirement["output_schema_refs"])
+    require_artifact_refs(module, requirement["refs"])
+    require_quality_refs(module, requirement["refs"])
+
+review_medical_floor = require_module("opl.scholarskills.review").get("medical_sci_initial_draft_quality_floor_policy") or {}
+if review_medical_floor.get("policy_id") != "scholarskills_medical_sci_initial_draft_quality_floor.v1":
+    fail("Review missing medical SCI initial draft quality floor policy")
+if review_medical_floor.get("classification") != "adapt_refs_only":
+    fail("Review medical SCI initial draft policy must be adapt_refs_only")
+require_all(
+    "Review medical SCI initial draft required refs",
+    review_medical_floor.get("required_refs"),
+    [
+        "reference_integrity_floor_ref",
+        "manuscript_body_volume_floor_ref",
+        "figure_table_volume_and_clinical_value_ref",
+        "internal_report_prose_route_back_ref",
+        "figure_polish_alignment_ref",
+        "registry_descriptive_scientific_boundary_ref",
+        "route_back_ref",
+        "owner_gate_handoff_ref",
+    ],
+)
+require_all(
+    "Review medical SCI initial draft route-back triggers",
+    review_medical_floor.get("route_back_candidate_triggers"),
+    [
+        "missing_reference_entries",
+        "unresolved_citation_placeholders",
+        "manuscript_body_below_section_floor",
+        "result_figures_or_tables_too_sparse_for_claims",
+        "result_figures_lack_clinical_interpretability",
+        "internal_report_or_workflow_prose_in_manuscript_body",
+        "figure_polish_skill_contract_drift",
+        "registry_descriptive_paper_claims_exceed_descriptive_evidence",
+        "diagnostic_or_prediction_framing_without_corresponding_design",
+    ],
+)
+for key in [
+    "can_claim_quality_verdict",
+    "can_claim_publication_readiness",
+    "can_claim_owner_acceptance",
+    "can_claim_current_package_authority",
+    "can_create_typed_blocker",
+    "can_sign_owner_receipt",
+]:
+    if review_medical_floor.get(key) is not False:
+        fail(f"Review medical SCI initial draft authority flag {key} must be false")
 
 slr_citation_data_requirements = {
     "opl.scholarskills.lit": {
