@@ -254,13 +254,29 @@ cohort_step_plot_label <- function(step, index) {
   if (!nzchar(label) || is.na(n)) {
     stop(sprintf("cohort_flow_figure steps[%d] requires label and integer n", index))
   }
-  paste(
-    c(
-      strwrap(label, width = 24, simplify = FALSE)[[1]],
-      sprintf("n=%s", format(n, big.mark = ",", scientific = FALSE))
-    ),
-    collapse = "\n"
+  detail <- trimws(as.character(step$detail %||% ""))
+  detail_text <- ""
+  if (nzchar(detail)) {
+    detail_text <- clamp_wrapped_lines(detail, width = 34, max_lines = 2)
+  }
+  lines <- c(
+    strwrap(label, width = 24, simplify = FALSE)[[1]],
+    sprintf("n=%s", format(n, big.mark = ",", scientific = FALSE)),
+    detail_text
   )
+  paste(lines[nzchar(trimws(lines))], collapse = "\n")
+}
+
+cohort_step_label_line_count <- function(step) {
+  label <- trimws(as.character(step$label %||% ""))
+  detail <- trimws(as.character(step$detail %||% ""))
+  label_lines <- strwrap(label, width = 24, simplify = FALSE)[[1]]
+  detail_lines <- character(0)
+  if (nzchar(detail)) {
+    detail_lines <- strsplit(clamp_wrapped_lines(detail, width = 34, max_lines = 2), "\n", fixed = TRUE)[[1]]
+    detail_lines <- detail_lines[nzchar(trimws(detail_lines))]
+  }
+  length(label_lines) + 1L + length(detail_lines)
 }
 
 participant_flow_y_centers <- function(count) {
@@ -662,6 +678,7 @@ build_ggconsort_plot <- function(payload) {
   exclusions <- payload$exclusions %||% list()
   endpoint_inventory <- payload$endpoint_inventory %||% list()
   design_panels <- payload$design_panels %||% list()
+  has_step_details <- any(vapply(steps, function(step) nzchar(trimws(as.character(step$detail %||% ""))), logical(1)))
   step_ids <- vapply(seq_along(steps), function(index) cohort_step_id(steps[[index]], index), character(1))
   if (length(unique(step_ids)) != length(step_ids)) {
     stop("cohort_flow_figure step ids must be unique after ggconsort normalization")
@@ -670,7 +687,7 @@ build_ggconsort_plot <- function(payload) {
   step_df$x <- 0
   exclusion_df <- cohort_exclusion_frame(exclusions, step_df, step_ids)
   node_width <- if (length(exclusions) > 0) 50 else 62
-  node_height <- 9.5
+  node_height <- if (has_step_details) 13.2 else 9.5
   exclusion_width <- if (length(exclusions) > 0) 18 else 22
   exclusion_height <- 8
   plot_y_min <- min(38, min(step_df$y - node_height / 2) - 5)
@@ -737,9 +754,9 @@ build_ggconsort_plot <- function(payload) {
       label = step_df$label,
       hjust = 0.5,
       vjust = 0.5,
-      size = 3.15,
+      size = if (has_step_details) 2.45 else 3.15,
       colour = text_colour,
-      lineheight = 0.9
+      lineheight = if (has_step_details) 0.82 else 0.9
     )
   if (nrow(exclusion_df) > 0) {
     plot <- plot +
@@ -986,6 +1003,7 @@ build_layout_sidecar <- function(payload, dependency_environment) {
   exclusions <- payload$exclusions %||% list()
   endpoint_inventory <- payload$endpoint_inventory %||% list()
   design_panels <- payload$design_panels %||% list()
+  has_step_details <- any(vapply(steps, function(step) nzchar(trimws(as.character(step$detail %||% ""))), logical(1)))
   panel_ids <- declared_panel_ids(payload)
   rendered_panel_ids <- if (length(panel_ids) == 1) panel_ids else character(0)
   step_ids <- vapply(seq_along(steps), function(index) cohort_step_id(steps[[index]], index), character(1))
@@ -1027,9 +1045,9 @@ build_layout_sidecar <- function(payload, dependency_environment) {
     flow_nodes[[length(flow_nodes) + 1]] <- list(
       box_id = box_id,
       box_type = "main_step",
-      line_count = 2L,
-      max_line_chars = 44L,
-      rendered_height_pt = 74.0,
+      line_count = as.integer(cohort_step_label_line_count(steps[[index]])),
+      max_line_chars = if (has_step_details) 54L else 44L,
+      rendered_height_pt = if (has_step_details) 94.0 else 74.0,
       rendered_width_pt = rendered_width_pt,
       padding_pt = 10.0
     )
@@ -1108,6 +1126,7 @@ build_layout_sidecar <- function(payload, dependency_environment) {
       source_renderer = "MAS/ReportingFlow::cohort_flow_figure",
       figure_purpose = "participant_accounting_and_strobe_consort_flow",
       rendered_title_policy = "figure_title_metadata_only_not_drawn_inside_plot",
+      step_detail_render_policy = if (has_step_details) "visible_when_present" else "not_requested",
       uses_ggconsort = TRUE,
       panel_ids = rendered_panel_ids,
       ggconsort_capable_prepared_environment_required = TRUE,
