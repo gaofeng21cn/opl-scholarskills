@@ -1046,7 +1046,7 @@ build_layout_sidecar <- function(payload, dependency_environment) {
       box_id = box_id,
       box_type = "main_step",
       line_count = as.integer(cohort_step_label_line_count(steps[[index]])),
-      max_line_chars = if (has_step_details) 54L else 44L,
+      max_line_chars = if (has_step_details) 48L else 44L,
       rendered_height_pt = if (has_step_details) 94.0 else 74.0,
       rendered_width_pt = rendered_width_pt,
       padding_pt = 10.0
