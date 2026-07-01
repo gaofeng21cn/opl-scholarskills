@@ -211,13 +211,12 @@ dpcc_plot_transition_site_support <- function(payload) {
   site_plot <- ggplot(site_df, aes(x = share_of_index_patients * 100, y = fold_id)) +
     geom_col(fill = palette$secondary, width = 0.58) +
     geom_text(
-      aes(label = sprintf("%s patients\n%.1f%%", format(round(index_patients), big.mark = ",", scientific = FALSE), share_of_index_patients * 100)),
-      hjust = -0.08,
-      size = style_numeric(style_typography(payload), "tick_size", 10.0) * 0.24,
-      lineheight = 0.9,
+      aes(label = sprintf("%.1f%%", share_of_index_patients * 100)),
+      hjust = -0.12,
+      size = style_numeric(style_typography(payload), "tick_size", 10.0) * 0.27,
       colour = palette$text
     ) +
-    coord_cartesian(xlim = c(0, max(site_df$share_of_index_patients * 100, na.rm = TRUE) * 1.26), clip = "off") +
+    coord_cartesian(xlim = c(0, max(site_df$share_of_index_patients * 100, na.rm = TRUE) * 1.18), clip = "off") +
     labs(
       title = candidate_non_empty(payload$coverage_panel_title, "Site-held-out support"),
       x = "Share of index patients (%)",
@@ -314,6 +313,7 @@ dpcc_layout_override <- function(template_id, display_payload) {
         figure_purpose = "phenotype_transition_stability_plus_site_held_out_support",
         rendered_title_policy = "figure_title_metadata_only_not_drawn_inside_plot",
         transition_cell_label_policy = "major_share_percent_only_no_counts",
+        site_support_label_policy = "percent_only_counts_remain_in_table",
         transition_rows = dpcc_metric_rows(display_payload$transition_rows),
         site_fold_rows = dpcc_metric_rows(display_payload$site_fold_rows),
         visit_coverage = display_payload$visit_coverage %||% NULL,
