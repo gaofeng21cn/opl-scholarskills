@@ -766,7 +766,7 @@ build_ggconsort_plot <- function(payload) {
       label = step_df$label,
       hjust = 0.5,
       vjust = 0.5,
-      size = if (has_step_details && max_step_line_count > 5L) 2.15 else if (has_step_details) 2.35 else 3.15,
+      size = if (has_step_details && max_step_line_count > 6L) 2.45 else if (has_step_details) 2.75 else 3.15,
       colour = text_colour,
       lineheight = if (has_step_details) 0.84 else 0.9
     )
