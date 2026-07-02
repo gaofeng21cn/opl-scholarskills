@@ -56,6 +56,49 @@
     "can_claim_owner_acceptance": false,
     "can_claim_current_package_authority": false
   },
+  "feedbackops_refs_only_adapter_policy": {
+    "policy_id": "scholarskills_feedbackops_refs_only_adapter.v1",
+    "adapter_role": "opl_feedbackops_refs_only_capability_adapter",
+    "evidence_profile": "target_agent_feedback_external_suite",
+    "input_ref_families": [
+      "delivery_feedback_ref",
+      "feedbackops_intake_ref",
+      "target_agent_feedback_external_suite_ref"
+    ],
+    "output_ref_families": [
+      "candidate_refs",
+      "quality_hints",
+      "display_capability_suggestion_ref",
+      "write_capability_suggestion_ref",
+      "review_capability_suggestion_ref",
+      "route_back_candidate_ref",
+      "stop_or_continue_recommendation_ref"
+    ],
+    "route_back_ref_policy": {
+      "consuming_owners": [
+        "MAS",
+        "OMA"
+      ],
+      "feedbackops_intake_refs_consumed_as": "evidence_input",
+      "route_back_refs_consumed_as": "owner_surface_routing_input",
+      "consumption_policy": "MAS_or_OMA_may_consume_feedbackops_intake_and_route_back_refs_as_evidence_input_then_issue_owner_receipt_typed_blocker_quality_verdict_artifact_mutation_or_current_package_update_from_their_own_authority_surface"
+    },
+    "no_authority_policy": "ScholarSkills_may_generate_candidate_refs_quality_hints_and_display_write_review_capability_suggestions_from_delivery_feedback_but_cannot_sign_owner_receipt_create_typed_blocker_claim_quality_verdict_or_write_MAS_current_package",
+    "can_generate_candidate_refs": true,
+    "can_generate_quality_hints": true,
+    "can_suggest_display_write_review_capabilities": true,
+    "can_act_as_evidence_input": true,
+    "can_sign_owner_receipt": false,
+    "can_create_typed_blocker": false,
+    "can_claim_quality_verdict": false,
+    "can_write_mas_current_package": false,
+    "can_write_domain_truth": false,
+    "can_write_runtime_state": false,
+    "can_mutate_artifact_body": false,
+    "can_claim_owner_acceptance": false,
+    "can_claim_publication_readiness": false,
+    "can_claim_current_package_authority": false
+  },
   "authority_boundary": {
     "can_claim_domain_ready": false,
     "can_claim_quality_verdict": false,

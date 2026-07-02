@@ -150,6 +150,80 @@ for container, label in [(bridge, "runtime bridge"), (bridge_policy, "bridge env
         if container.get(key) is not False:
             fail(f"{label} authority flag {key} must be false")
 
+feedbackops = contract.get("feedbackops_refs_only_adapter_policy") or {}
+if feedbackops.get("policy_id") != "scholarskills_feedbackops_refs_only_adapter.v1":
+    fail("contract missing FeedbackOps refs-only adapter policy")
+if feedbackops.get("adapter_role") != "opl_feedbackops_refs_only_capability_adapter":
+    fail("FeedbackOps adapter role must stay refs-only capability adapter")
+if feedbackops.get("evidence_profile") != "target_agent_feedback_external_suite":
+    fail("FeedbackOps adapter must declare target_agent_feedback_external_suite profile")
+require_all(
+    "FeedbackOps input refs",
+    feedbackops.get("input_ref_families"),
+    [
+        "delivery_feedback_ref",
+        "feedbackops_intake_ref",
+        "target_agent_feedback_external_suite_ref",
+    ],
+)
+require_all(
+    "FeedbackOps output refs",
+    feedbackops.get("output_ref_families"),
+    [
+        "candidate_refs",
+        "quality_hints",
+        "display_capability_suggestion_ref",
+        "write_capability_suggestion_ref",
+        "review_capability_suggestion_ref",
+        "route_back_candidate_ref",
+        "stop_or_continue_recommendation_ref",
+    ],
+)
+route_back_policy = feedbackops.get("route_back_ref_policy") or {}
+require_all("FeedbackOps consuming owners", route_back_policy.get("consuming_owners"), ["MAS", "OMA"])
+if route_back_policy.get("feedbackops_intake_refs_consumed_as") != "evidence_input":
+    fail("FeedbackOps intake refs must be consumed as evidence input")
+if route_back_policy.get("route_back_refs_consumed_as") != "owner_surface_routing_input":
+    fail("FeedbackOps route-back refs must be consumed as owner-surface routing input")
+route_back_consumption = route_back_policy.get("consumption_policy") or ""
+for token in ["MAS_or_OMA", "owner_receipt", "typed_blocker", "quality_verdict", "current_package_update", "own_authority_surface"]:
+    if token not in route_back_consumption:
+        fail(f"FeedbackOps route-back consumption policy missing {token}")
+no_authority_policy = feedbackops.get("no_authority_policy") or ""
+for token in [
+    "candidate_refs",
+    "quality_hints",
+    "display_write_review_capability_suggestions",
+    "cannot_sign_owner_receipt",
+    "create_typed_blocker",
+    "claim_quality_verdict",
+    "write_MAS_current_package",
+]:
+    if token not in no_authority_policy:
+        fail(f"FeedbackOps no-authority policy missing {token}")
+for key in [
+    "can_generate_candidate_refs",
+    "can_generate_quality_hints",
+    "can_suggest_display_write_review_capabilities",
+    "can_act_as_evidence_input",
+]:
+    if feedbackops.get(key) is not True:
+        fail(f"FeedbackOps allowed capability flag {key} must be true")
+for key in [
+    "can_sign_owner_receipt",
+    "can_create_typed_blocker",
+    "can_claim_quality_verdict",
+    "can_write_mas_current_package",
+    "can_write_domain_truth",
+    "can_write_runtime_state",
+    "can_mutate_artifact_body",
+    "can_claim_owner_acceptance",
+    "can_claim_publication_readiness",
+    "can_claim_current_package_authority",
+]:
+    if feedbackops.get(key) is not False:
+        fail(f"FeedbackOps authority flag {key} must be false")
+
 for token in [
     "authority false",
     "MAS owner gate",
@@ -162,6 +236,9 @@ for token in [
     "critic_review_ref",
     "external_runtime_install_not_required_before_candidate_refs_or_checklists",
     "downstream owner-consumption refs only",
+    "FeedbackOps Refs-Only Adapter",
+    "target_agent_feedback_external_suite",
+    "feedbackops_refs_only_adapter_policy",
 ]:
     if token not in skill:
         fail(f"SKILL.md missing required token: {token}")
@@ -898,6 +975,9 @@ required_doc_tokens = {
     ],
     "skills/opl-scholarskills/SKILL.md": [
         "MAS Progress And AI Judgment Rules",
+        "FeedbackOps Refs-Only Adapter",
+        "target_agent_feedback_external_suite",
+        "feedbackops_refs_only_adapter_policy",
         "AI auto-judgment-first",
         "stop_or_continue_recommendation",
         "Missing external runtime installation is not a blocker",
@@ -926,6 +1006,10 @@ required_doc_tokens = {
         "AI-Scientist",
         "FAROS",
         "AutoR",
+        "feedbackops_refs_only_adapter_policy",
+        "target_agent_feedback_external_suite",
+        "feedbackops_intake_ref",
+        "MAS/OMA",
     ],
     "docs/gallery/display-gallery.md": [
         "source pack",
@@ -957,6 +1041,10 @@ required_doc_tokens = {
         "FAROS",
         "AutoR",
         "不接 runtime",
+        "target_agent_feedback_external_suite",
+        "feedbackops_intake_ref",
+        "MAS/OMA",
+        "不能写 MAS/current_package",
     ],
 }
 for relative, tokens in required_doc_tokens.items():

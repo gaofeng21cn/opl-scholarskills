@@ -42,6 +42,8 @@ opl scholar-skills materialize --module <module_id> --input-ref <ref> --artifact
 
 Candidate body 应优先服务 MAS 的 AI 自动候选判断，而不是把判断默认推给人类。只要 evidence 足够，engine/readback 应暴露 `verdict_candidate`、`route_back_candidate`、`stop_or_continue_recommendation` 和可机读 AI-consumable evidence refs；只有越权到 domain truth、publication readiness、owner receipt、typed blocker、artifact authority、current package authority 或真实 human gate 时才停止在 owner surface。
 
+FeedbackOps 输入走同一 refs-only engine 边界。`target_agent_feedback_external_suite` profile 下，ScholarSkills 可以把 delivery feedback 转成 `candidate_refs`、quality hints、Display/Write/Review capability suggestions、`route_back_candidate_ref` 和 `stop_or_continue_recommendation_ref`；这些 refs 只作为 MAS/OMA 的 `feedbackops_intake_ref` 或 route-back evidence input。MAS/OMA 可以消费它们并在自己的 owner surface 签 owner receipt、typed blocker、quality verdict、artifact mutation 或 current-package update；ScholarSkills engine 不能写 MAS/current_package，不能签 owner receipt，不能创建 typed blocker，也不能 claim quality verdict、owner acceptance 或 publication readiness。
+
 当前十个 engine 是 OPL-owned deterministic candidate builder：
 
 - Display: `scholar_display_candidate_visual_plan_engine`
